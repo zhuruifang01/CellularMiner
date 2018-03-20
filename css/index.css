@@ -1,0 +1,75 @@
+html,body{width:100%;height:100%;min-width:1400px;overflow:hidden;margin:0;padding:0;color:#000;background:#F7F7F7;text-align:center;background:#EFF2FB;}
+/*header*/
+.header{width:100%;height:60px;background:#fff;box-shadow:2px 5px 20px #e3e3e3;}
+ul,li,a{margin:0;padding:0;list-style:none;text-decoration:none;}
+.header ul,.header ul{width:400px;height:100%;}
+.header .left li{float:left;width:200px;height:100%;line-height:60px;color:#1B2D5E;font-size:28px;}
+.header .left .logo{width:100px;width:120px;height:40px;border-right:1px solid #E2E2E2; color:blue;margin-top:12px;line-height:40px;}
+.header #show{line-height:60px;font-size:20px;color:#1B2D5E;}
+/*contain*/
+/*=======数据=========================*/
+/*一级菜单*/
+.contain{width:100%;height:100%;}
+.contain .menu{width:110px;height:100%;float:left;background:#fff;border:1px solid #E2E2E2;}
+.contain .menu ul{width:100%;height:60px;border-bottom:1px solid #E2E2E2;padding-top:12px;padding-left:4px;box-sizing:border-box;}
+.contain .menu ul a{display:block;width:100%;height:100%;text-decoration:none;}
+.contain .menu ul li{width:104px;height:35px;line-height:35px;border-radius:20px 0px 0px 20px;background:none;color:#1B2D5E;text-align:left;overflow:hidden;}
+.contain .menu .active{cursor:pointer;}
+.contain .menu .active li{background:#3F96E8;color:#fff;}
+.contain .menu ul li span:first-child{width:30px;height:50px;float:left;margin-left:18px;}
+/*二级菜单*/
+.menuTwo{width:180px;height:100%;margin-top:13px;margin-left:2px;float:left;background:#eee;}
+.menuTwo ul{width:100%;height:35px;line-height:35px;color:#1B2D5E;font-size:14px;}
+.menuTwo ul li{width:100%;height:100%;border-bottom:1px solid #E2E2E2;box-sizing:border-box;background:#fff;overflow-x:hidden;}
+.menuTwo .title{background:#3F96E8;color:#fff;border:0;}
+.menuTwo .title li{float:left;}
+.menuTwo .title .add,.menuTwo .title .delete{width:40px;height:25px;line-height:21px;background:#3DE6B0;border:0;border-radius:4px;font-size:30px;font-weight:bold;cursor:pointer;margin-top:5px;margin-left:3px;overflow:hidden;}
+.menuTwo .title .add input{position:absolute;height:20px;top:-2px;left:0px;opacity:0;}
+/*======参数==========================*/
+.menuTwo_canshu{width:180px;height:100%;margin-top:13px;margin-left:2px;float:left;background:#eee;text-align:left;}
+.menuTwo_canshu .title{width:100%;height:35px;line-height:35px;color:#fff;font-size:14px;background:#3F96E8;text-align:center;}
+.menuTwo_canshu ul,.menuTwo_canshu ul li{width:100%;cursor:pointer;}
+.menuTwo_canshu .yiji{width:100%;height:32px;line-height:32px;box-sizing:border-box;background:#ccc;}
+.menuTwo_canshu .yiji li span:first-child{padding-left:5px;box-sizing:border-box;}
+.menuTwo_canshu .yijiActive{background:#A8CFF4;}
+.menuTwo_canshu .yiji li{height:100%;background:none;}
+.menuTwo_canshu .yiji li:hover{background:#A8CFF4;}
+.menuTwo_canshu .erji{width:100%;height:auto;background:#fff;padding-left:25px;box-sizing:border-box;border-bottom:1px solid #E2E2E2;}
+.menuTwo_canshu .erji li{width:100%;height:22px;line-height:22px;border-right:2px solid #fff;box-sizing:border-box;}
+.menuTwo_canshu .erji li:hover{border-right-color:#3F96E8;}
+.menuTwo_canshu .erji .erjiActive{border-right-color:#3F96E8;}
+.menuTwo_canshu .erji{display:none;}
+/*表*/
+.contain .main{width:1050px;height:700px;float:left;margin-top:13px;position:relative;}
+.contain .main .mianTable{display:none;width:520px;height:340px;margin-left:5px;margin-bottom:5px;border:2px solid #cfd7ec;border-radius:6px;box-shadow:0px 0px 20px #cfd7ec;float:left;background:#fff;box-sizing:border-box;overflow:hidden;}
+.contain .main .mianTable .title{width:100%;height:32px;line-height:32px;background:#3D95E8;font-size:20px;font-weight:bold;}
+.mianTable .title .left,.mianTable .title .right{width:130px;height:100%;float:left;color:#fff;text-align:left;}
+.mianTable .title .left{margin-left:20px;}
+.mianTable .title .right{width:80px;float:right;}
+.mianTable .title .right li{width:25px;height:25px;float:left;margin-right:12px;cursor:pointer;}
+.mianTable .title .right li img{width:100%;height:100%;}
+
+.mianTable .conTable{width:100%;height:305px;overflow:scroll;}
+.conTable .table thead tr th{font-size:14px;font-weight:normal;}
+.conTable .table tbody tr td{font-size:12px;}
+.conTable .table tr:nth-child(odd){background:#F1F5FF;}
+.conTable .table tr:nth-child(even){background:#fff;}
+.conTable .table tr:hover{background:#8ABDED}
+/*放大表*/
+.contain .main .zhezhaoTable{display:none;width:100%;height:100%;position:absolute;top:0;left:0;background:rgba(0,0,0,.8);}
+.contain .main .zhezhaoTable .mianBigTable{
+    width:800px;height:500px;background:#FFF;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;border-radius:10px;box-shadow:0px 0px 30px #cfd7ec;overflow:hidden;
+}
+.mianBigTable .title{width:100%;height:32px;line-height:32px;background:#3D95E8;font-size:20px;font-weight:bold;}
+.mianBigTable .title .left,.mianBigTable .title .right{width:130px;height:100%;float:left;color:#fff;text-align:left;}
+.mianBigTable .title .left{margin-left:20px;}
+.mianBigTable .title .right{width:50px;float:right;}
+.mianBigTable .title .right li{width:25px;height:25px;float:left;margin-right:12px;cursor:pointer;}
+.mianBigTable .title .right li img{width:100%;height:100%;}
+.mianBigTable .conTable{width:100%;height:468px;overflow:scroll;}
+
+
+
+
+
+
