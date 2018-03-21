@@ -22,10 +22,19 @@ $(function(){
 //==============数据======================
     $(".menuTwo_shuju .add input").change(function(){
         var val = $(this).val();
-        $(".menuTwo_shuju ul").last().after("<ul class='filess'><li>" +val+ "</li></ul>");
+        var arr=val.split('\\');
+        var my=arr[arr.length-1];
+        $(".menuTwo_shuju ul").last().after("<ul class='filess files0'><li>"+my+"<span>上传中...</span></li></ul>");
     });
     $(".menuTwo_shuju .delete").click(function(){
         $(".menuTwo_shuju .filess").last().remove();
+    });
+
+    $(".menuTwo_shuju .filess").on("click",function(){
+        var index=$(this).index(".menuTwo_shuju .filess");
+        $(".menuTwo .filess").removeClass("active");
+        $(".menuTwo .filess").eq(index).addClass("active");
+        var xuanzhong=$(".menuTwo .active").text();
     });
 //==============参数=======================
     //点击表：
@@ -40,12 +49,59 @@ $(function(){
         //     alert("温馨提示:建议主窗口最多展示四个模块，如需另选，可关闭其余展示模块！");
         // }
     });
-    //点击字段:
-    $(".menuTwo_canshu .erji li").click(function(){
-        var index1=$(this).index(".menuTwo_canshu .erji");
-        var index2=$(".menuTwo_canshu .erji").
-        alert(index);
-        $(".menuTwo_canshu .erji li").eq(index).addClass("erjiActive");
+    // 初始化 显示的字段:
+    $(".conTable1 .table thead tr th").eq(0).css("displsy","none");
+
+    //点击表1 的字段:
+    $(".menuTwo_canshu .erji1 .cli").on('click',function(){
+        var index = $(this).index(".menuTwo_canshu .erji1 .cli");
+        var cliBorderW = $(".menuTwo_canshu .erji1 .cli").eq(index).css("border-right-width");
+        var trIndex = index+3;
+        if(cliBorderW=="3px"){
+            $(".menuTwo_canshu .erji1 .cli").eq(index).removeClass("erjiActive");
+
+            $(".conTable1 .table thead tr th:nth-child("+trIndex+")").addClass("hid");
+            $(".conTable1 .table tbody tr td:nth-child("+trIndex+")").addClass("hid");
+        }else{
+            $(".menuTwo_canshu .erji1 .cli").eq(index).addClass("erjiActive");
+
+            $(".conTable1 .table thead tr th:nth-child("+trIndex+")").removeClass("hid");
+            $(".conTable1 .table tbody tr td:nth-child("+trIndex+")").removeClass("hid");
+        }
+    });
+    //点击表2 的字段:
+    $(".menuTwo_canshu .erji2 .cli").on('click',function(){
+        var index = $(this).index(".menuTwo_canshu .erji2 .cli");
+        var cliBorderW = $(".menuTwo_canshu .erji2 .cli").eq(index).css("border-right-width");
+        var trIndex = index+3;
+        if(cliBorderW=="3px"){
+            $(".menuTwo_canshu .erji2 .cli").eq(index).removeClass("erjiActive");
+
+            $(".conTable2 .table thead tr th:nth-child("+trIndex+")").addClass("hid");
+            $(".conTable2 .table tbody tr td:nth-child("+trIndex+")").addClass("hid");
+        }else{
+            $(".menuTwo_canshu .erji2 .cli").eq(index).addClass("erjiActive");
+
+            $(".conTable2 .table thead tr th:nth-child("+trIndex+")").removeClass("hid");
+            $(".conTable2 .table tbody tr td:nth-child("+trIndex+")").removeClass("hid");
+        }
+    });
+    //点击表3 的字段:
+    $(".menuTwo_canshu .erji3 .cli").click(function(){
+        var index = $(this).index(".menuTwo_canshu .erji3 .cli");
+        var cliBorderW = $(".menuTwo_canshu .erji3 .cli").eq(index).css("border-right-width");
+        var trIndex = index+3;
+        if(cliBorderW=="3px"){
+            $(".menuTwo_canshu .erji3 .cli").eq(index).removeClass("erjiActive");
+
+            $(".conTable3 .table thead tr th:nth-child("+trIndex+")").addClass("hid");
+            $(".conTable3 .table tbody tr td:nth-child("+trIndex+")").addClass("hid");
+        }else{
+            $(".menuTwo_canshu .erji2 .cli").eq(index).addClass("erjiActive");
+
+            $(".conTable3 .table thead tr th:nth-child("+trIndex+")").removeClass("hid");
+            $(".conTable3 .table tbody tr td:nth-child("+trIndex+")").removeClass("hid");
+        }
     });
     //关闭表 按钮:
     $(".mianTable .title .right .false").click(function(){

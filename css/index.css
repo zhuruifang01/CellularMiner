@@ -34,11 +34,17 @@ ul,li,a{margin:0;padding:0;list-style:none;text-decoration:none;}
 .menuTwo_canshu .yijiActive{background:#A8CFF4;}
 .menuTwo_canshu .yiji li{height:100%;background:none;}
 .menuTwo_canshu .yiji li:hover{background:#A8CFF4;}
-.menuTwo_canshu .erji{width:100%;height:auto;background:#fff;padding-left:25px;box-sizing:border-box;border-bottom:1px solid #E2E2E2;}
-.menuTwo_canshu .erji li{width:100%;height:22px;line-height:22px;border-right:2px solid #fff;box-sizing:border-box;}
-.menuTwo_canshu .erji li:hover{border-right-color:#3F96E8;}
-.menuTwo_canshu .erji .erjiActive{border-right-color:#3F96E8;}
+.menuTwo_canshu .erji{width:100%;height:auto;background:#fff;padding-left:15px;box-sizing:border-box;border-bottom:1px solid #E2E2E2;}
+.menuTwo_canshu .erji li{width:100%;height:22px;line-height:22px;border-right-width:0px;border-right-style:solid;border-right-color:blue;margin-top:2px;box-sizing:border-box;}
+.menuTwo_canshu .erji li:hover{background:#F7F7F7;}
+.menuTwo_canshu .erji .teshu{border-right-width:3px;border-right-color:blue;}
+.menuTwo_canshu .erji .erjiActive{border-right-width:3px;border-right-color:#3F96E8;}
 .menuTwo_canshu .erji{display:none;}
+.menuTwo .filess{cursor:pointer;font-size:12px;}
+.menuTwo .filess span{float:right;color:lightseagreen;}
+.menuTwo .active{text-decoration:underline;font-size:16px;}
+.menuTwo .files0{text-align:left;}
+.menuTwo .active span{width:15px;height:15px;border-radius:50%;background:green;float:right;margin:10px 1px;box-sizing:border-box;}
 /*表*/
 .contain .main{width:1050px;height:700px;float:left;margin-top:13px;position:relative;}
 .contain .main .mianTable{display:none;width:520px;height:340px;margin-left:5px;margin-bottom:5px;border:2px solid #cfd7ec;border-radius:6px;box-shadow:0px 0px 20px #cfd7ec;float:left;background:#fff;box-sizing:border-box;overflow:hidden;}
@@ -50,7 +56,7 @@ ul,li,a{margin:0;padding:0;list-style:none;text-decoration:none;}
 .mianTable .title .right li img{width:100%;height:100%;}
 
 .mianTable .conTable{width:100%;height:305px;overflow:scroll;}
-.conTable .table thead tr th{font-size:14px;font-weight:normal;}
+.conTable .table thead tr th{font-size:14px;font-weight:normal;text-align:center;}
 .conTable .table tbody tr td{font-size:12px;}
 .conTable .table tr:nth-child(odd){background:#F1F5FF;}
 .conTable .table tr:nth-child(even){background:#fff;}
@@ -67,6 +73,10 @@ ul,li,a{margin:0;padding:0;list-style:none;text-decoration:none;}
 .mianBigTable .title .right li{width:25px;height:25px;float:left;margin-right:12px;cursor:pointer;}
 .mianBigTable .title .right li img{width:100%;height:100%;}
 .mianBigTable .conTable{width:100%;height:468px;overflow:scroll;}
+/*表 显示的字段*/
+.conTable .table .hid{display:none}
+
+
 
 
 
