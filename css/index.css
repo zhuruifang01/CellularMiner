@@ -18,9 +18,9 @@ ul,li,a{margin:0;padding:0;list-style:none;text-decoration:none;}
 .contain .menu .active li{background:#3F96E8;color:#fff;}
 .contain .menu ul li span:first-child{width:30px;height:50px;float:left;margin-left:18px;}
 /*二级菜单*/
-.menuTwo{width:180px;height:100%;margin-top:13px;margin-left:2px;float:left;background:#eee;}
-.menuTwo ul{width:100%;height:35px;line-height:35px;color:#1B2D5E;font-size:14px;}
-.menuTwo ul li{width:100%;height:100%;border-bottom:1px solid #E2E2E2;box-sizing:border-box;background:#fff;overflow-x:hidden;}
+.menuTwo{width:200px;height:100%;margin-top:13px;margin-left:2px;float:left;background:#eee;}
+.menuTwo ul{width:100%;height:35px;line-height:35px;color:#1B2D5E;font-size:14px;overflow:hidden;}
+.menuTwo ul li{width:100%;height:100%;border-bottom:1px solid #E2E2E2;box-sizing:border-box;background:#fff;}
 .menuTwo .title{background:#3F96E8;color:#fff;border:0;}
 .menuTwo .title li{float:left;}
 .menuTwo .title .add,.menuTwo .title .delete{width:40px;height:25px;line-height:21px;background:#3DE6B0;border:0;border-radius:4px;font-size:30px;font-weight:bold;cursor:pointer;margin-top:5px;margin-left:3px;overflow:hidden;}
@@ -35,7 +35,7 @@ ul,li,a{margin:0;padding:0;list-style:none;text-decoration:none;}
 .menuTwo_canshu .yiji li{height:100%;background:none;}
 .menuTwo_canshu .yiji li:hover{background:#A8CFF4;}
 .menuTwo_canshu .erji{width:100%;height:auto;background:#fff;padding-left:15px;box-sizing:border-box;border-bottom:1px solid #E2E2E2;}
-.menuTwo_canshu .erji li{width:100%;height:22px;line-height:22px;border-right-width:0px;border-right-style:solid;border-right-color:blue;margin-top:2px;box-sizing:border-box;}
+.menuTwo_canshu .erji li{width:100%;height:22px;line-height:22px;border-right-width:0px;border-right-style:solid;border-right-color:blue;margin-top:2px;box-sizing:border-box;overflow:hi}
 .menuTwo_canshu .erji li:hover{background:#F7F7F7;}
 .menuTwo_canshu .erji .teshu{border-right-width:3px;border-right-color:blue;}
 .menuTwo_canshu .erji .erjiActive{border-right-width:3px;border-right-color:#3F96E8;}
