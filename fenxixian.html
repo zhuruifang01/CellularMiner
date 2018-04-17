@@ -3,73 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <title>Cellular Miller</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <script src="js/jquery.min.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/baobiao.js"></script>
+    <style>
+        .box { position:fixed; top:73px; left:310px; min-width:500px; height:300px; border:1px solid #666; background:#fff; }
+        .box .title { background:#ddd; height:30px; min-width:200px; cursor:move; }
+        .box .close { border:1px solid #d08; color:#d08; display:block; width:18px; height:18px; line-height:20px; text-align:center; cursor:pointer; position:absolute; right:5px; top:5px; font-weight:bold; }
+        .bg_change_size { background:url('size2.png') no-repeat; }
+        .BMap_cpyCtrl{display:none;}
+        .menuTwo ul{cursor:pointer;}
+        .box .table{font-size:12px;overflow:scroll;}
+        .box .table th,.box .table td{text-align:center;}
+        .tableBox{display:none;z-index:99999;}
+        .tableBox .close{right:61px;font-size:12px;font-weight:normal;}
+        .tableBox .closeA{
+            border: 1px solid #d08;
+            color: #d08;
+            display: block;
+            width: 18px;
+            height: 18px;
+            line-height: 20px;
+            text-align: center;
+            cursor: pointer;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            font-size:12px;
+        }
+    </style>
 </head>
 <body>
 <div class="header">
-     <ul style="float:left" class="left">
-         <li class="logo">LOGO</li>
-         <li>Cellular Miller</li>
-     </ul>
-     <ul style="float:right;width:250px;">
-         <li><div id="show"></div></li>
-     </ul>
+    <ul style="float:left" class="left">
+        <li class="logo">LOGO</li>
+        <li>Cellular Miller</li>
+    </ul>
+    <ul style="float:right;width:250px;">
+        <li><div id="show"></div></li>
+    </ul>
 </div>
 <div class="contain">
     <div class="menu">
         <ul>
             <a href="index.html">
-            <li>
-                <span> <img src="img/icon1.png" alt=""> </span>
-                <span>数据</span>
-            </li>
+                <li>
+                    <span> <img src="img/icon1.png" alt=""> </span>
+                    <span>数据</span>
+                </li>
             </a>
         </ul>
         <ul>
             <a href="canshu.html">
-            <li>
-                <span> <img src="img/icon2.png" alt=""> </span>
-                <span>参数</span>
-            </li>
+                <li>
+                    <span> <img src="img/icon2.png" alt=""> </span>
+                    <span>参数</span>
+                </li>
             </a>
         </ul>
         <ul>
-            <a href="map.html">
             <li>
-                <span> <img src="img/icon3.png" alt=""> </span>
+                <span> <img src="img/icon03.png" alt=""> </span>
                 <span>地图</span>
             </li>
-            </a>
         </ul>
         <ul>
             <a href="baobiao.html">
-            <li>
-                <span> <img src="img/icon4.png" alt=""> </span>
-                <span>报表</span>
-            </li>
+                <li>
+                    <span> <img src="img/icon4.png" alt=""> </span>
+                    <span>报表</span>
+                </li>
             </a>
         </ul>
-        <ul class="active">
-            <li>
-                <span style="margin-right:px;"> <img src="img/icon05.png" alt=""> </span>
-                <span>分析项</span>
-            </li>
-        </ul>
-        <ul>
-            <a href="huifang.html">
-            <li>
-                <span> <img src="img/icon6.png" alt=""> </span>
-                <span>回放</span>
-            </li>
+        <ul  class="active">
+            <a href="fenxixian.html">
+                <li>
+                    <span style="margin-right:px;"> <img src="img/icon5.png" alt=""> </span>
+                    <span>分析项</span>
+                </li>
             </a>
+        </ul>
+    </div>
+    <div class="menuTwo menuTwo_shuju">
+        <ul class="title">
+            <li class="add" style="float:left;position:relative;font-size:10px;width:68px;line-height:26px;">
+                上传并下载
+                <input type="file" id="file">
+            </li>
         </ul>
     </div>
     <div class="main" style="line-height:300px;font-size:20px;color:#000;">
-        分析项模块区【待做】
     </div>
+
 </div>
 </body>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".box").bg_move({
+            move:'.title',
+            closed:'.close',
+            size : 6
+        });
+    });
+</script>
 </html>

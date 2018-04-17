@@ -3,10 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Cellular Miller</title>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=uIGNq6dLthEQ5iM5G8mNfCl1BDDfWx9d"></script>
+    <script src="js/mapData.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <script src="js/jquery.min.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/demo.js"></script>
+    <script src="js/map.js"></script>
+    <style>
+        .box { position:fixed; top:73px; left:310px; min-width:500px; height:300px; border:1px solid #666; background:#fff; }
+        .box .title { background:#ddd; height:30px; min-width:200px; cursor:move; }
+        .box .close { border:1px solid #d08; color:#d08; display:block; width:18px; height:18px; line-height:20px; text-align:center; cursor:pointer; position:absolute; right:5px; top:5px; font-weight:bold; }
+        .bg_change_size { background:url('size2.png') no-repeat; }
+        .BMap_cpyCtrl{display:none;}
+        .menuTwo ul{cursor:pointer;}
+        .box .table{font-size:12px;overflow:scroll;}
+        .box .table th,.box .table td{text-align:center;}
+        .tableBox{display:none;z-index:99999;}
+        .tableBox .close{right:61px;font-size:12px;font-weight:normal;}
+        .tableBox .closeA{
+            border: 1px solid #d08;
+            color: #d08;
+            display: block;
+            width: 18px;
+            height: 18px;
+            line-height: 20px;
+            text-align: center;
+            cursor: pointer;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            font-size:12px;
+        }
+    </style>
 </head>
 <body>
 <div class="header">
@@ -58,18 +87,234 @@
             </li>
             </a>
         </ul>
-        <ul>
-            <a href="huifang.html">
-            <li>
-                <span> <img src="img/icon6.png" alt=""> </span>
-                <span>回放</span>
+    </div>
+    <div class="menuTwo menuTwo_shuju">
+        <ul class="title">
+            <li class="add" style="float:left;position:relative;">
+                +
+                <input type="file" id="file">
             </li>
-            </a>
         </ul>
+        <ul class="tableMenu">table1</ul>
+        <ul class="tableMenu">table2</ul>
     </div>
     <div class="main" style="line-height:300px;font-size:20px;color:#000;">
-        地图模块区【待做】
+        <!--地图:-->
+        <div class="box" style="overflow:hidden;width:600px;height:500px;">
+            <div class="title"><span class="close">X</span></div>
+            <div class="con" style="width:100%;height:100%;position:relative;">
+                map
+               <div id="map1" style="width:100%;height:100%;position:absolute;left:0;top:0;"></div>
+            </div>
+        </div>
+        <!--表格-->
+        <div class="box tableBox tableBox1" style="overflow:scroll;">
+            <div class="title">
+                <span class="close">隐</span>
+                <span class="closeA">关</span>
+            </div>
+            <div class="con" style="width:100%;height:100%;position:relative;overflow:hidden;">
+                <table class="table table1" style="overflow:scroll">
+                    <thead>
+                    <tr style="background:#f9f9f9">
+                        <th>经度</th>
+                        <th>纬度</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>74.438</td>
+                        <td>39.006</td>
+                    </tr>
+                    <tr>
+                        <td>74.932</td>
+                        <td>38.382</td>
+                    </tr>
+                    <tr>
+                        <td>75.402</td>
+                        <td>37.879,1</td>
+                    </tr>
+                    <tr>
+                        <td>75.24</td>
+                        <td>38.777</td>
+                    </tr>
+                    <tr>
+                        <td>75.264</td>
+                        <td>39.656</td>
+                    </tr>
+                    <tr>
+                        <td>75.264</td>
+                        <td>39.656</td>
+                    </tr>
+                    <tr>
+                        <td>75.264</td>
+                        <td>39.656</td>
+                    </tr>
+                    <tr>
+                        <td>75.264</td>
+                        <td>39.656</td>
+                    </tr>
+                    <tr>
+                        <td>75.264</td>
+                        <td>39.656</td>
+                    </tr>
+                    <tr>
+                        <td>75.264</td>
+                        <td>39.656</td>
+                    </tr>
+                    <tr>
+                        <td>75.264</td>
+                        <td>39.656</td>
+                    </tr>
+                    <tr>
+                        <td>75.264</td>
+                        <td>39.656</td>
+                    </tr>
+                    <tr>
+                        <td>75.264</td>
+                        <td>39.656</td>
+                    </tr>
+                    <tr>
+                        <td>75.264</td>
+                        <td>39.656</td>
+                    </tr>
+                    <tr>
+                        <td>74.438</td>
+                        <td>39.006</td>
+                    </tr>
+                    <tr>
+                        <td>74.932</td>
+                        <td>38.382</td>
+                    </tr>
+                    <tr>
+                        <td>75.402</td>
+                        <td>37.879,1</td>
+                    </tr>
+                    <tr>
+                        <td>75.24</td>
+                        <td>38.777</td>
+                    </tr>
+                    <tr>
+                        <td>75.264</td>
+                        <td>39.656</td>
+                    </tr>
+                    <tr>
+                        <td>75.264</td>
+                        <td>39.656</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="box tableBox tableBox2" style="overflow:scroll;">
+            <div class="title">
+                <span class="close">隐</span>
+                <span class="closeA">关</span>
+            </div>
+            <div class="con" style="width:100%;height:100%;position:relative;overflow:hidden;">
+                <table class="table table2" style="overflow:scroll">
+                    <thead>
+                    <tr style="background:#f9f9f9">
+                        <th>经度</th>
+                        <th>纬度</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>74.438</td>
+                            <td>39.006</td>
+                        </tr>
+                        <tr>
+                            <td>74.932</td>
+                            <td>38.382</td>
+                        </tr>
+                        <tr>
+                            <td>75.402</td>
+                            <td>37.879,1</td>
+                        </tr>
+                        <tr>
+                            <td>75.24</td>
+                            <td>38.777</td>
+                        </tr>
+                        <tr>
+                            <td>75.264</td>
+                            <td>39.656</td>
+                        </tr>
+                        <tr>
+                            <td>75.264</td>
+                            <td>39.656</td>
+                        </tr>
+                        <tr>
+                            <td>75.264</td>
+                            <td>39.656</td>
+                        </tr>
+                        <tr>
+                            <td>75.264</td>
+                            <td>39.656</td>
+                        </tr>
+                        <tr>
+                            <td>75.264</td>
+                            <td>39.656</td>
+                        </tr>
+                        <tr>
+                            <td>75.264</td>
+                            <td>39.656</td>
+                        </tr>
+                        <tr>
+                            <td>75.264</td>
+                            <td>39.656</td>
+                        </tr>
+                        <tr>
+                            <td>75.264</td>
+                            <td>39.656</td>
+                        </tr>
+                        <tr>
+                            <td>75.264</td>
+                            <td>39.656</td>
+                        </tr>
+                        <tr>
+                            <td>75.264</td>
+                            <td>39.656</td>
+                        </tr>
+                        <tr>
+                            <td>74.438</td>
+                            <td>39.006</td>
+                        </tr>
+                        <tr>
+                            <td>74.932</td>
+                            <td>38.382</td>
+                        </tr>
+                        <tr>
+                            <td>75.402</td>
+                            <td>37.879,1</td>
+                        </tr>
+                        <tr>
+                            <td>75.24</td>
+                            <td>38.777</td>
+                        </tr>
+                        <tr>
+                            <td>75.264</td>
+                            <td>39.656</td>
+                        </tr>
+                        <tr>
+                            <td>75.264</td>
+                            <td>39.656</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
 </div>
 </body>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".box").bg_move({
+            move:'.title',
+            closed:'.close',
+            size : 6
+        });
+    });
+</script>
 </html>

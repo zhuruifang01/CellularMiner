@@ -20,104 +20,92 @@ $(function(){
         $('#show').html(currentTime);
     },1000);
 //==============数据======================
+    //获取文件表：
+    var data=[{"id":"20180326155208147566","name":"nbiot.txt"},{"id":"20180326155314139893","name":"nbiot.txt"}]
+    for(var i=0;i<data.length;i++){
+        $(".menuTwo_shuju").append("<ul class='filess'>" +
+            "<li>"+data[i].name+"<span></span></li>" +
+            "<div class='id'>"+data[i].id+"</div>" +
+            "</ul>"
+        );
+    }
+    $(".menuTwo_shuju .filess:last-child").addClass("active");
+    //      $.ajax({
+    //          url:"/getFiles",
+    //          type:"GET",
+    //          async:false,
+    //          success:function(data){
+    //              data = JSON.parse(data);
+    //              for(var i=0;i<data.length;i++){
+    //                  $(".menuTwo_shuju").append("<ul class='filess'>" +
+    //                      "<li>"+data[i].name+"<span></span></li>" +
+    //                      "<div class='id'>"+data[i].id+"</div>" +
+    //                      "</ul>"
+    //                  );
+    //              }
+    //              var fileid = document.cookie;
+    //              if(fileid =='' || fileid == null){
+    //             	 $(".menuTwo_shuju .filess:last-child").addClass("active");
+    //              }else{
+    //             	 var cookies = fileid.split("=");
+    //             	 var cookieValue = cookies[cookies.length-1];
+    //             	 if(cookieValue == '' || cookieValue == null){
+    //             		 $(".menuTwo_shuju .filess:last-child").addClass("active");
+    //             	 }else{
+    //             		 for(var i=0;i<data.length;i++){
+    //             			 if(data[i].id == cookieValue){
+    //             				 $(".menuTwo_shuju .filess").eq(i).addClass("active");
+    //             			 }
+    //             		 }
+    //             	 }
+    //              }
+    //          }
+    //      });
+    //上传文件：
     $(".menuTwo_shuju .add input").change(function(){
         var val = $(this).val();
         var arr=val.split('\\');
         var my=arr[arr.length-1];
         $(".menuTwo_shuju ul").last().after("<ul class='filess files0'><li>"+my+"<span>上传中...</span></li></ul>");
-    });
-    $(".menuTwo_shuju .delete").click(function(){
-        $(".menuTwo_shuju .filess").last().remove();
-    });
 
+        var files = $('#file')[0].files[0];
+        var formFile = new FormData();
+        formFile.append("files", files);
+        var data1 = formFile;
+        // $.ajax({
+        //     url:"/upload",
+        //     type:"post",
+        //     data:data1,
+        //     processData:false,
+        //     contentType:false,
+        //     success:function(data){
+        //    	 window.location.href="../index";
+        //     }
+        // });
+    });
+    //删除文件：
+    $(".menuTwo_shuju .delete").click(function(){
+        var id = $(".menuTwo_shuju ul:last-child .id").text();
+        // $.ajax({
+        //     url:"/deleteFile/"+id,
+        //     type: "GET",
+        //     dataType: "json",
+        //     async:false,
+        //     success: function(data) {}
+        // });
+        $(".menuTwo_shuju ul:last-child").remove();
+    });
+    //选中的文件：
     $(".menuTwo_shuju .filess").on("click",function(){
         var index=$(this).index(".menuTwo_shuju .filess");
         $(".menuTwo .filess").removeClass("active");
         $(".menuTwo .filess").eq(index).addClass("active");
-        var xuanzhong=$(".menuTwo .active").text();
     });
-//==============参数=======================
-    //点击表：
-    $(".menuTwo_canshu .yiji").click(function(){
-        var index=$(this).index(".menuTwo_canshu .yiji");
-        $(".menuTwo_canshu .erji").eq(index).slideToggle();
-        // var yijiLength=$(".menuTwo_canshu .yijiActive").length;
-        // if(yijiLength<4){
-        $(".menuTwo_canshu .yiji").eq(index).addClass("yijiActive");
-        $(".mianTable").eq(index).show(500);
-        // }else{
-        //     alert("温馨提示:建议主窗口最多展示四个模块，如需另选，可关闭其余展示模块！");
-        // }
+    $("#canshu").click(function(){
+        var xuanzhongId=$(".menuTwo .active .id").text();
+        document.cookie=xuanzhongId;
+        alert(document.cookie);
+        window.location.href="canShu.html";
     });
-    // 初始化 显示的字段:
-    $(".conTable1 .table thead tr th").eq(0).css("displsy","none");
 
-    //点击表1 的字段:
-    $(".menuTwo_canshu .erji1 .cli").on('click',function(){
-        var index = $(this).index(".menuTwo_canshu .erji1 .cli");
-        var cliBorderW = $(".menuTwo_canshu .erji1 .cli").eq(index).css("border-right-width");
-        var trIndex = index+3;
-        if(cliBorderW=="3px"){
-            $(".menuTwo_canshu .erji1 .cli").eq(index).removeClass("erjiActive");
-
-            $(".conTable1 .table thead tr th:nth-child("+trIndex+")").addClass("hid");
-            $(".conTable1 .table tbody tr td:nth-child("+trIndex+")").addClass("hid");
-        }else{
-            $(".menuTwo_canshu .erji1 .cli").eq(index).addClass("erjiActive");
-
-            $(".conTable1 .table thead tr th:nth-child("+trIndex+")").removeClass("hid");
-            $(".conTable1 .table tbody tr td:nth-child("+trIndex+")").removeClass("hid");
-        }
-    });
-    //点击表2 的字段:
-    $(".menuTwo_canshu .erji2 .cli").on('click',function(){
-        var index = $(this).index(".menuTwo_canshu .erji2 .cli");
-        var cliBorderW = $(".menuTwo_canshu .erji2 .cli").eq(index).css("border-right-width");
-        var trIndex = index+3;
-        if(cliBorderW=="3px"){
-            $(".menuTwo_canshu .erji2 .cli").eq(index).removeClass("erjiActive");
-
-            $(".conTable2 .table thead tr th:nth-child("+trIndex+")").addClass("hid");
-            $(".conTable2 .table tbody tr td:nth-child("+trIndex+")").addClass("hid");
-        }else{
-            $(".menuTwo_canshu .erji2 .cli").eq(index).addClass("erjiActive");
-
-            $(".conTable2 .table thead tr th:nth-child("+trIndex+")").removeClass("hid");
-            $(".conTable2 .table tbody tr td:nth-child("+trIndex+")").removeClass("hid");
-        }
-    });
-    //点击表3 的字段:
-    $(".menuTwo_canshu .erji3 .cli").click(function(){
-        var index = $(this).index(".menuTwo_canshu .erji3 .cli");
-        var cliBorderW = $(".menuTwo_canshu .erji3 .cli").eq(index).css("border-right-width");
-        var trIndex = index+3;
-        if(cliBorderW=="3px"){
-            $(".menuTwo_canshu .erji3 .cli").eq(index).removeClass("erjiActive");
-
-            $(".conTable3 .table thead tr th:nth-child("+trIndex+")").addClass("hid");
-            $(".conTable3 .table tbody tr td:nth-child("+trIndex+")").addClass("hid");
-        }else{
-            $(".menuTwo_canshu .erji2 .cli").eq(index).addClass("erjiActive");
-
-            $(".conTable3 .table thead tr th:nth-child("+trIndex+")").removeClass("hid");
-            $(".conTable3 .table tbody tr td:nth-child("+trIndex+")").removeClass("hid");
-        }
-    });
-    //关闭表 按钮:
-    $(".mianTable .title .right .false").click(function(){
-        var index=$(this).index(".mianTable .title .right .false");
-        $(".mianTable").eq(index).hide(500);
-        $(".menuTwo_canshu .yiji").eq(index).removeClass("yijiActive");
-        $(".menuTwo_canshu .erji").eq(index).hide(500);
-    });
-    //放大表 按钮:
-    $(".mianTable .title .right .big").click(function(){
-        var index=$(this).index(".mianTable .title .right .big");
-        $(".contain .main .zhezhaoTable").eq(index).slideDown(500);
-    });
-    //缩小表 按钮：
-    $(".zhezhaoTable .title .right .false").click(function(){
-        var index=$(this).index(".zhezhaoTable .title .right .false");
-        $(".contain .main .zhezhaoTable").eq(index).slideUp(500);
-    });
 });
