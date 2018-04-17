@@ -104,7 +104,7 @@ $(function(){
     $("#canshu").click(function(){
         var xuanzhongId=$(".menuTwo .active .id").text();
         document.cookie=xuanzhongId;
-        alert(document.cookie);
+        // alert(document.cookie);
         window.location.href="canShu.html";
     });
 
