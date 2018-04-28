@@ -59,10 +59,11 @@ ul,li,a{margin:0;padding:0;list-style:none;text-decoration:none;}
 
 .mianTable .conTable{width:100%;height:305px;overflow:scroll;}
 .conTable .table thead tr th{font-size:14px;font-weight:normal;text-align:center;}
+.conTable .table tbody tr{cursor:pointer;}
 .conTable .table tbody tr td{font-size:12px;}
 .conTable .table tr:nth-child(odd){background:#F1F5FF;}
 .conTable .table tr:nth-child(even){background:#fff;}
-.conTable .table tr:hover{background:#8ABDED}
+
 /*放大表*/
 .contain .main .zhezhaoTable{display:none;width:100%;height:100%;position:absolute;top:0;left:0;background:rgba(0,0,0,.8);}
 .contain .main .zhezhaoTable .mianBigTable{
