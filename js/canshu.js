@@ -293,6 +293,7 @@ $(function(){
             for(var i=0;i<data.rfs.length;i++){
                 var gl = $(".conTable1 .table tbody tr").eq(i).attr("class");
                 if(gl == "gaoliang"){
+                    alert(1);
                     //找到高亮的时间
                     var glT = $(".conTable1 .table tbody tr").eq(i).children("td:nth-child(2)").html();
                     //找到高亮的时间 所对应的时间list:
@@ -313,10 +314,11 @@ $(function(){
                     jishiqi = setInterval(function(){
                         timeList1();
                     },500);
-
                     break;
-                }else{
-                    //若无选中的高亮状态，则从表一的第一条开始回放：
+                }
+                if(i == data.rfs.length-1){
+                    alert(0);
+                    //找到高亮的时间
                     var glT = $(".conTable1 .table tbody tr").eq(0).children("td:nth-child(2)").html();
                     //找到高亮的时间 所对应的时间list:
                     var glTimeindex;
@@ -336,7 +338,6 @@ $(function(){
                     jishiqi = setInterval(function(){
                         timeList1();
                     },500);
-
                     break;
                 }
             }
