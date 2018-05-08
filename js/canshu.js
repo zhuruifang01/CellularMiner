@@ -23,13 +23,13 @@ $(function(){
     $(".menuTwo_canshu .yiji").click(function(){
         var index=$(this).index(".menuTwo_canshu .yiji");
         $(".menuTwo_canshu .erji").eq(index).slideToggle();
-        // var yijiLength=$(".menuTwo_canshu .yijiActive").length;
-        // if(yijiLength<4){
-        $(".menuTwo_canshu .yiji").eq(index).addClass("yijiActive");
-        $(".mianTable").eq(index).show(500);
-        // }else{
-        //     alert("温馨提示:建议主窗口最多展示四个模块，如需另选，可关闭其余展示模块！");
-        // }
+        var yijiLength=$(".menuTwo_canshu .yijiActive").length;
+        if(yijiLength<4){
+            $(".menuTwo_canshu .yiji").eq(index).addClass("yijiActive");
+            $(".mianTable").eq(index).show(500);
+        }else{
+            alert("温馨提示:建议主窗口最多展示四个模块，如需另选，可关闭其余展示模块！");
+        }
     });
     // 初始化 显示的字段:
     $(".conTable1 .table thead tr th").eq(0).css("displsy","none");
@@ -192,6 +192,9 @@ $(function(){
     }
     //获取所点击的主表：
     $(".conTable .table tbody").on('click','tr',function(){
+        $(".huifangButton li").removeClass("active").eq(1).addClass("active");
+        $(".speed li").removeClass("active");
+        clearInterval(jishiqi);
         //确定选中的表的某一行：
             var index = $(this).index();
         //确定选中的表：
@@ -207,6 +210,7 @@ $(function(){
         //获取点中表的某行的对应时间：
             $(".conTable .table tbody tr:nth-child(odd)").css("background",'#F1F5FF');
             $(".conTable .table tbody tr:nth-child(even)").css("background",'#fff');
+            $(".conTable .table tbody tr").removeClass("gaoliang");
             $(".conTable .table tbody").eq(index0).children("tr").eq(index).css("background","#8ABDED");
             $(".conTable .table tbody").eq(index0).children("tr").eq(index).addClass("gaoliang");
             var Time = $(".conTable .table tbody").eq(index0).children("tr").eq(index).children("td:nth-child(2)").html(); //获取点中的时间
@@ -225,15 +229,18 @@ $(function(){
                     if(i>=1){
                         $(".conTable1 .table tbody tr:nth-child(odd)").css("background",'#F1F5FF');
                         $(".conTable1 .table tbody tr:nth-child(even)").css("background",'#fff');
+                        $(".conTable .table tbody tr").removeClass("gaoliang");
                         if(table1getTime > getTime){
                             $(".conTable1 .table tbody tr").eq(i-1).css("background","#8ABDED");
+                            $(".conTable1 .table tbody tr").eq(i-1).addClass("gaoliang");
                             var juli = 34*(i-2);
-                            $(".conTable1").scrollTop(juli);
+                            $(".conTable1").animate({scrollTop:juli},300);
+                            // $(".conTable1").scrollTop(juli);
+
                         }else{
                             $(".conTable1 .table tbody tr").eq(i).css("background","#8ABDED");
-
+                            $(".conTable1 .table tbody tr").eq(i).addClass("gaoliang");
                         }
-
                     }
                     break;
                 }
@@ -247,12 +254,15 @@ $(function(){
                 if(i>=1){
                     $(".conTable2 .table tbody tr:nth-child(odd)").css("background",'#F1F5FF');
                     $(".conTable2 .table tbody tr:nth-child(even)").css("background",'#fff');
+                    $(".conTable2 .table tbody tr").removeClass("gaoliang");
                     if(table2getTime > getTime){
                         $(".conTable2 .table tbody tr").eq(i-1).css("background","#8ABDED");
+                        $(".conTable2 .table tbody tr").eq(i-1).addClass("gaoliang");
                         var juli = 34*(i-2);
-                        $(".conTable2").scrollTop(juli);
+                        $(".conTable2").animate({scrollTop:juli},300);
                     }else{
                         $(".conTable2 .table tbody tr").eq(i).css("background","#8ABDED");
+                        $(".conTable2 .table tbody tr").eq(i).addClass("gaoliang");
                     }
 
                 }
@@ -268,12 +278,15 @@ $(function(){
                 if(i>=1){
                     $(".conTable3 .table tbody tr:nth-child(odd)").css("background",'#F1F5FF');
                     $(".conTable3 .table tbody tr:nth-child(even)").css("background",'#fff');
+                    $(".conTable2 .table tbody tr").removeClass("gaoliang");
                     if(table3getTime > getTime){
                         $(".conTable3 .table tbody tr").eq(i-1).css("background","#8ABDED");
+                        $(".conTable3 .table tbody tr").eq(i-1).addClass("gaoliang");
                         var juli = 34*(i-2);
-                        $(".conTable3").scrollTop(juli);
+                        $(".conTable3").animate({scrollTop:juli},300);
                     }else{
                         $(".conTable3 .table tbody tr").eq(i).css("background","#8ABDED");
+                        $(".conTable3 .table tbody tr").eq(i).addClass("gaoliang");
                     }
                 }
                 break;
@@ -281,19 +294,38 @@ $(function(){
         }
     }
 //=======回放：===============================================
-    var jishiqi;
-    $(".huifang").click(function(){
-        huifang(); //调用huifang()函数
+    var jishiqi; //全局定义 计时器
+    $(".huifangButton li").click(function(){
+        var index = $(this).index();
+        $(".huifangButton li").removeClass("active").eq(index).addClass("active");
+        if(index == 0){ //回放
+            huifang(500); //调用huifang()函数 正常speed
+        }else{ //暂停
+            $(".speed li").removeClass("active");
+            clearInterval(jishiqi); //关闭计时器
+        }
     });
-    $(".huifangClose").click(function(){
+    //控制计时器速度：
+    // $(".speed li").click(function(){
+    //     $(".huifangButton li").removeClass("active").eq(0).addClass("active");
+    //     var index1 = $(this).index();
+    //     $(".speed li").removeClass("active").eq(index1).addClass("active");
+    //     if(index1 == 0){
+    //         huifang(1000);  //慢速
+    //     }else if(index1 == 1){
+    //         huifang(500);  //正常
+    //     }else{
+    //         huifang(200);  //快速
+    //     }
+    // });
+    //huifang()函数 封装：
+    function huifang(speed){
         clearInterval(jishiqi);
-    });
-    function huifang(aa){
         //获取到表一高亮的当前位置 ：
             for(var i=0;i<data.rfs.length;i++){
                 var gl = $(".conTable1 .table tbody tr").eq(i).attr("class");
                 if(gl == "gaoliang"){
-                    //找到高亮的时间
+                    //找到高亮的时间【从点击处开始回放】
                     var glT = $(".conTable1 .table tbody tr").eq(i).children("td:nth-child(2)").html();
                     //找到高亮的时间 所对应的时间list:
                     var glTimeindex;
@@ -316,7 +348,7 @@ $(function(){
                     break;
                 }
                 if(i == data.rfs.length-1){
-                    //找到高亮的时间
+                    //找到高亮的时间【无点击的话，从表一的第一条开始回放】
                     var glT = $(".conTable1 .table tbody tr").eq(0).children("td:nth-child(2)").html();
                     //找到高亮的时间 所对应的时间list:
                     var glTimeindex;
@@ -335,7 +367,7 @@ $(function(){
                     // 打开计时器
                     jishiqi = setInterval(function(){
                         timeList1();
-                    },500);
+                    },speed);
                     break;
                 }
             }

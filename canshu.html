@@ -8,6 +8,10 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/canshu.js"></script>
+    <style>
+        .huifangButton li,.speed li{background:oldlace;}
+        .huifangButton .active,.speed .active{background:orange;}
+    </style>
 </head>
 <body>
 <div class="header">
@@ -62,8 +66,15 @@
     </div>
     <div class="menuTwo_canshu">
         <ul class="title">参数详情</ul>
-        <ul class="title huifang" style="background:orange">回放</ul>
-        <ul class="title huifangClose" style="background:oldlace;color:#000;">暂停回放</ul>
+        <ul class="title huifangButton" style="background:oldlace;color:#000;">
+            <li style="float:left;width:33.3333%;height:100%;cursor:wait;"> 回放</li>
+            <li style="float:right;width:33.3333%;height:100%;cursor:pointer;">暂停</li>
+        </ul>
+        <!--<ul class="title speed" style="background:oldlace;color:#000;">-->
+            <!--<li style="float:left;width:33.3333%;height:100%;cursor:pointer;">慢速</li>-->
+            <!--<li style="float:left;width:33.3333%;height:100%;cursor:pointer;">正常</li>-->
+            <!--<li style="float:left;width:33.3333%;height:100%;cursor:pointer;">快速</li>-->
+        <!--</ul>-->
         <ul class="yiji">
             <li>
                 <span class="text" style="float:left;">r_rf</span>

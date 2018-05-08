@@ -42,31 +42,48 @@ $(function(){
     });
 //===========左侧菜单========:
     $(".menuTwo .tableMenu").click(function(){
-            var index=$(this).index(".menuTwo .tableMenu");
-            $(".menuTwo .tableMenu").eq(index).css("background","#fff");
-            $(".tableBox").eq(index).css("display","block");
+            $(".menuTwo .tableMenu").css({"background":"orangered","color":"#fff"});
+            $(".mianTable").show(200);
     });
     // 关闭表格：
-    $(".tableBox .closeA").click(function(){
-        var index=$(this).index(".tableBox .closeA");
-        $(".tableBox").eq(index).css("display","none");
-        $(".menuTwo .tableMenu").eq(index).css("background","none");
+    $(".mianTable .false").click(function(){
+        $(".mianTable").hide(200);
+        $(".menuTwo .tableMenu").css({"background":"orange","color":"#000"});
     });
-//===========map===========:
+//========动态加载数据=================:
+    var mapData;
+    $.ajax({
+        type: "GET",
+        url:"map.json",
+        async:false,
+        success: function(result) {
+            mapData = result;
+        }
+    });
+//表格：
+    for(var i=0;i<mapData.map.length;i++){
+        $(".table1 tbody").append("<tr>" +
+            "<td>"+mapData.map[i].id+"</td>" +
+            "<td>"+mapData.map[i].longitude+"</td>" +
+            "<td>"+mapData.map[i].latitude+"</td>" +
+            "</tr>"
+        );
+    }
+//map:
     var map = new BMap.Map("map1");          // 创建地图实例
-    var point = new BMap.Point(74.438,39.006);  // 创建点坐标
-    map.centerAndZoom(point,5);                 // 初始化地图，设置中心点坐标和地图级别
+    var point = new BMap.Point(121.7858911,31.17975);  // 创建点坐标
+    map.centerAndZoom(point,12);                 // 初始化地图，设置中心点坐标和地图级别
     //海量点 全部显示：
     function aa() {
         if (document.createElement('canvas').getContext) {  // 判断当前浏览器是否支持绘制海量点
             var points = [];  // 添加海量点数据
-            for (var i = 0; i < data.data.length; i++) {
-                points.push(new BMap.Point(data.data[i][0], data.data[i][1]));
+            for (var i = 0; i < mapData.map.length; i++) {
+                points.push(new BMap.Point(mapData.map[i].longitude, mapData.map[i].latitude));
             }
             var options = {
                 size: BMAP_POINT_SIZE_SMALL,
                 shape:3,
-                color: '#d340c3'
+                color: 'blue'
             }
             var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection
             pointCollection.addEventListener('click', function (e) {
@@ -82,29 +99,11 @@ $(function(){
     aa();
     //鼠标指向表格 增加海量点（高亮）：
     var data2=[];
-    $(".table1 tbody tr").mouseover(function(){
+    $(".table1 tbody tr").on("mouseover",function(){
         var index=$(this).index(".table1 tbody tr");
-        $(".table1 tbody tr").css("background","#fff").eq(index).css("background",'red');
-        $(".table2 tbody tr").css("background","#fff").eq(index).css("background",'red');
-        var jin=$(".table1 tbody tr").eq(index).children("td:first-child").text();
-        var wei=$(".table1 tbody tr").eq(index).children("td:last-child").text();
-        data2= [];
-        data2.push(jin);
-        data2.push(wei);
-        bb();
-    });
-    $(".table1 tbody tr").mouseout(function(){
-        data2= [];
-        bb();
-    });
-
-
-    $(".table2 tbody tr").mouseover(function(){
-        var index=$(this).index(".table2 tbody tr");
-        $(".table1 tbody tr").css("background","#fff").eq(index).css("background",'red');
-        $(".table2 tbody tr").css("background","#fff").eq(index).css("background",'red');
-        var jin=$(".table1 tbody tr").eq(index).children("td:first-child").text();
-        var wei=$(".table1 tbody tr").eq(index).children("td:last-child").text();
+        $(".table1 tbody tr").css("background","#fff").eq(index).css("background",'cornflowerblue');
+        var jin=$(".table1 tbody tr").eq(index).children("td:nth-child(2)").text();
+        var wei=$(".table1 tbody tr").eq(index).children("td:nth-child(3)").text();
         data2= [];
         data2.push(jin);
         data2.push(wei);
@@ -127,19 +126,10 @@ $(function(){
                 color: 'red'
             }
             var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection
-
             map.addOverlay(pointCollection);  // 添加Overlay
         } else {
             alert('请在chrome、safari、IE8+以上浏览器查看本示例');
         }
     }
-    //滚轮联动：
-        $(".tableBox1").scroll(function(){
-            var juli1=$(".tableBox1").scrollTop();
-            $(".tableBox2").scrollTop(juli1);
-        });
-        $(".tableBox2").scroll(function(){
-            var juli1=$(".tableBox2").scrollTop();
-            $(".tableBox1").scrollTop(juli1);
-        });
+
 });
