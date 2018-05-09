@@ -99,9 +99,13 @@ $(function(){
     aa();
     //鼠标指向表格 增加海量点（高亮）：
     var data2=[];
-    $(".table1 tbody tr").on("mouseover",function(){
+    $(".table1 tbody tr").on("click",function(){
+        clearInterval(jishiqiMap); //关闭计时器
+        $(".huifangButton li").css("background","oldlace").eq(1).css("background","orange");
+
         var index=$(this).index(".table1 tbody tr");
         $(".table1 tbody tr").css("background","#fff").eq(index).css("background",'cornflowerblue');
+        $(".table1 tbody tr").removeClass("glMap").eq(index).addClass("glMap");
         var jin=$(".table1 tbody tr").eq(index).children("td:nth-child(2)").text();
         var wei=$(".table1 tbody tr").eq(index).children("td:nth-child(3)").text();
         data2= [];
@@ -109,11 +113,7 @@ $(function(){
         data2.push(wei);
         bb();
     });
-    $(".table1 tbody tr").mouseout(function(){
-        data2= [];
-        bb();
-    });
-    //高亮 打点：
+    //高亮 打点函数：
     function bb() {
         map.clearOverlays();
         aa();
@@ -132,4 +132,53 @@ $(function(){
         }
     }
 
+
+//map回放：
+    var jishiqiMap; //全局定义 计时器
+    $(".huifangButton li").click(function(){
+        var index = $(this).index();
+        $(".huifangButton li").css("background","oldlace").eq(index).css("background","orange");
+        if(index == 0){ //调用回放 huifangMap()
+            jishiqiMap = setInterval(function(){
+                huifangMap()
+            },600);
+        }else{ //暂停
+            clearInterval(jishiqiMap); //关闭计时器
+        }
+    });
+//回放函数：
+    function huifangMap(){
+        for(var i=0;i<mapData.map.length;i++){
+            var gl = $(".table1 tbody tr").eq(i).attr("class");
+            var j;
+            if(gl == "glMap"){
+                j = i;
+                mapList();
+                break;
+            }else if( i==mapData.map.length-1 ){
+                j = 0;
+                mapList()
+            }
+        //让高亮位置 下移一行 的函数：
+            function mapList(){
+                j = j+1;
+                $(".table1 tbody tr").css("background","#fff").eq(j).css("background",'cornflowerblue');
+                $(".table1 tbody tr").removeClass("glMap").eq(j).addClass("glMap");
+                var jin=$(".table1 tbody tr").eq(j).children("td:nth-child(2)").text();
+                var wei=$(".table1 tbody tr").eq(j).children("td:nth-child(3)").text();
+                data2= [];
+                data2.push(jin);
+                data2.push(wei);
+                bb();
+
+                var scrollI =(j/5).toFixed(0);console.log(scrollI);
+                if(j>=mapData.map.length){
+                    $(".conTable").animate({scrollTop:0},300)
+                }else{
+                    $(".conTable").animate({scrollTop:160*scrollI},500);
+                }
+            }
+
+        }
+    }
 });
