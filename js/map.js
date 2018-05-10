@@ -63,7 +63,7 @@ $(function(){
 //表格：
     for(var i=0;i<mapData.map.length;i++){
         $(".table1 tbody").append("<tr>" +
-            "<td>"+mapData.map[i].id+"</td>" +
+            "<td>"+(i+1)+"</td>" +
             "<td>"+mapData.map[i].longitude+"</td>" +
             "<td>"+mapData.map[i].latitude+"</td>" +
             "</tr>"
@@ -71,8 +71,8 @@ $(function(){
     }
 //map:
     var map = new BMap.Map("map1");          // 创建地图实例
-    var point = new BMap.Point(121.7858911,31.17975);  // 创建点坐标
-    map.centerAndZoom(point,12);                 // 初始化地图，设置中心点坐标和地图级别
+    var point = new BMap.Point(mapData.map[1].longitude,mapData.map[1].latitude);  // 创建点坐标
+    map.centerAndZoom(point,21);                 // 初始化地图，设置中心点坐标和地图级别
     //海量点 全部显示：
     function aa() {
         if (document.createElement('canvas').getContext) {  // 判断当前浏览器是否支持绘制海量点
