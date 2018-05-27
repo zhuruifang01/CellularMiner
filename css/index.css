@@ -48,8 +48,8 @@ ul,li,a{margin:0;padding:0;list-style:none;text-decoration:none;}
 .menuTwo .files0{text-align:left;}
 .menuTwo .active span{width:15px;height:15px;border-radius:50%;background:green;float:right;margin:10px 1px;box-sizing:border-box;}
 /*表*/
-.contain .main{width:1050px;height:700px;float:left;margin-top:13px;position:relative;}
-.contain .main .mianTable{display:none;width:520px;height:340px;margin-left:5px;margin-bottom:5px;border:2px solid #cfd7ec;border-radius:6px;box-shadow:0px 0px 20px #cfd7ec;float:left;background:#fff;box-sizing:border-box;overflow:hidden;}
+.contain .main{width:1050px;height:700px;float:left;margin-top:13px;position:relative;overflow:hidden;}
+.contain .main .mianTable{position:relative;display:none;width:520px;height:340px;margin-left:5px;margin-bottom:5px;border:2px solid #cfd7ec;border-radius:6px;box-shadow:0px 0px 20px #cfd7ec;float:left;background:#fff;box-sizing:border-box;overflow:hidden;}
 .contain .main .mianTable .title{width:100%;height:32px;line-height:32px;background:#3D95E8;font-size:20px;font-weight:bold;}
 .mianTable .title .left,.mianTable .title .right{width:130px;height:100%;float:left;color:#fff;text-align:left;}
 .mianTable .title .left{margin-left:20px;}
@@ -63,11 +63,10 @@ ul,li,a{margin:0;padding:0;list-style:none;text-decoration:none;}
 .conTable .table tbody tr td{font-size:12px;}
 .conTable .table tr:nth-child(odd){background:#F1F5FF;}
 .conTable .table tr:nth-child(even){background:#fff;}
-
 /*放大表*/
 .contain .main .zhezhaoTable{display:none;width:100%;height:100%;position:absolute;top:0;left:0;background:rgba(0,0,0,.8);}
 .contain .main .zhezhaoTable .mianBigTable{
-    width:800px;height:500px;background:#FFF;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;border-radius:10px;box-shadow:0px 0px 30px #cfd7ec;overflow:hidden;
+    width:95%;height:650px;background:#FFF;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;border-radius:10px;box-shadow:0px 0px 30px #cfd7ec;overflow:hidden;
 }
 .mianBigTable .title{width:100%;height:32px;line-height:32px;background:#3D95E8;font-size:20px;font-weight:bold;}
 .mianBigTable .title .left,.mianBigTable .title .right{width:130px;height:100%;float:left;color:#fff;text-align:left;}
@@ -75,7 +74,7 @@ ul,li,a{margin:0;padding:0;list-style:none;text-decoration:none;}
 .mianBigTable .title .right{width:50px;float:right;}
 .mianBigTable .title .right li{width:25px;height:25px;float:left;margin-right:12px;cursor:pointer;}
 .mianBigTable .title .right li img{width:100%;height:100%;}
-.mianBigTable .conTable{width:100%;height:468px;overflow:scroll;}
+.mianBigTable .conTable{width:100%;height:618px;overflow:scroll;}
 /*表 显示的字段*/
 .conTable .table .hid{display:none}
 

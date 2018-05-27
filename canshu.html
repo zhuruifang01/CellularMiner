@@ -2,15 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
     <title>Cellular Miner</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=uIGNq6dLthEQ5iM5G8mNfCl1BDDfWx9d"></script>
     <script src="js/jquery.min.js"></script>
-    <script src="js/index.js"></script>
     <script src="js/canshu.js"></script>
     <style>
         .huifangButton li,.speed li{background:oldlace;}
         .huifangButton .active,.speed .active{background:orange;}
+        .erji00 li span{width:16px;height:10px;float:left;margin:6px 3px;}
+        .rsrpZiDingYiBox{width:100%;height:100%;background:#C6C6C6;position:relative;display:none;}
+        .rsrpZiDingYi{width:500px;height:448px;background:#fff;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;border-radius:8px;overflow:hidden;}
+        .rsrpZiDingYi ul li{width:100%;height:50px;line-height:50px;border-bottom:1px dotted #494949;}
+        .rsrpZiDingYi ul li span{width:16px;height:10px;float:left;margin:19px 29px;}
+        .rsrpZiDingYi ul li input{width:100px;height:30px;border:0;border-radius:5px;border:1px solid #eeeeee;}
+        .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+        padding:2px;
+        }
     </style>
 </head>
 <body>
@@ -26,7 +36,7 @@
 <div class="contain">
     <div class="menu">
         <ul>
-            <a href="index.html">
+            <a href="shuju.html">
                 <li>
                     <span> <img src="img/icon1.png" alt=""> </span>
                     <span>数据</span>
@@ -38,22 +48,6 @@
                     <span> <img src="img/icon02.png" alt=""> </span>
                     <span>参数</span>
                 </li>
-        </ul>
-        <ul>
-            <a href="xinling.html">
-                <li>
-                    <span> <img src="img/icon2.png" alt=""> </span>
-                    <span>信令</span>
-                </li>
-            </a>
-        </ul>
-        <ul>
-            <a href="map.html">
-                <li>
-                    <span> <img src="img/icon3.png" alt=""> </span>
-                    <span>地图</span>
-                </li>
-            </a>
         </ul>
         <ul>
             <a href="baobiao.html">
@@ -83,149 +77,260 @@
             <!--<li style="float:left;width:33.3333%;height:100%;cursor:pointer;">正常</li>-->
             <!--<li style="float:left;width:33.3333%;height:100%;cursor:pointer;">快速</li>-->
         <!--</ul>-->
+        <ul class="yiji yijiActive">
+            <li>
+                <span class="text" style="float:left;">map</span>
+                <span style="float:right;"><img src="img/icon7.png" alt=""></span>
+            </li>
+        </ul>
+        <ul class="erji erji00">
+            <li><span></span><span id="rsrpChange" style="width:65px;height:25px;line-height:25px;border-radius:5px;background:orange;float:right;color:#fff;text-align: center;margin:0;cursor:pointer;">自定义</span></li>
+            <li><span style="background:#ff0000;"></span>RSRP<=-110</li>
+            <li><span style="background:#ff00ff;"></span> -110 < RSRP<=-105</li>
+            <li><span style="background:#ffff00;"></span> -105 < RSRP<=-100</li>
+            <li><span style="background:#00ffff;"></span> -100 < RSRP<=-95</li>
+            <li><span style="background:#0101fe;"></span> -95 < RSRP<=-85</li>
+            <li><span style="background:#30fe30;"></span> -85 < RSRP<=-70</li>
+            <li><span style="background:#009600;"></span> -70 < RSRP<=-50</li>
+            <li><span style="background:#BCF2BC;"></span> -50 < RSRP</li>
+            <li>pci顺序:<span style="background:blue;float:right;"></span><span style="background:green;float:right;"></span><span style="background:yellow;float:right;"></span><span style="background:red;float:right;"></span></li>
+        </ul>
         <ul class="yiji">
             <li>
-                <span class="text" style="float:left;">r_rf</span>
+                <span class="text" style="float:left;">信令</span>
+                <span style="float:right;"> <img src="img/icon7.png" alt=""> </span>
+            </li>
+        </ul>
+        <ul class="erji erji0">
+            <li class="teshu">code</li>
+            <li class="teshu">timestamp</li>
+            <li class="cli">version</li>
+            <li class="cli">rrc_rel</li>
+            <li class="cli">rrc_ver_major</li>
+            <li class="cli">rrc_ver_minor</li>
+            <li class="cli">upOrDown</li>
+            <li class="cli">messageType</li>
+        </ul>
+        <ul class="yiji">
+            <li>
+                <span class="text" style="float:left;">lte_nb_msg1</span>
                 <span style="float:right;"> <img src="img/icon7.png" alt=""> </span>
             </li>
         </ul>
         <ul class="erji erji1">
             <li class="teshu">id</li>
-            <li class="teshu">time</li>
+            <li class="teshu">timestamp</li>
+            <li class="cli">code</li>
+            <li class="cli">scheduled_sfn</li>
+            <li class="cli">scheduled_sub_fn</li>
+            <li class="cli">ul_earfcn</li>
+            <li class="cli">ul_frequence_offset</li>
+            <li class="cli">cp_length</li>
+            <li class="cli">coverage_level</li>
+            <li class="cli">subcarrier_index</li>
+            <li class="cli">subcarrier_offset</li>
+            <li class="cli">prach_tx_power</li>
+            <li class="cli">num_rep_data</li>
+            <li class="cli">ra_rnti</li>
+            <li class="cli">prachtx_sfn</li>
+            <li class="cli">prachtx_sub_fn</li>
+            <li class="cli">prach_win_s_sfn</li>
+            <li class="cli">prach_win_s_sub_fn</li>
+            <li class="cli">prach_win_e_sfn</li>
+            <li class="cli">prach_win_e_sub_fn</li>
+            <li class="cli">act_prach_tx_power</li>
+            <li class="cli">ho_offset</li>
+        </ul>
+        <ul class="yiji">
+            <li>
+                <span class="text" style="float:left;">lte_nb_msg2</span>
+                <span style="float:right;"> <img src="img/icon7.png" alt=""> </span>
+            </li>
+        </ul>
+        <ul class="erji erji2">
+            <li class="teshu">id</li>
+            <li class="teshu">timestamp</li>
+            <li class="cli">code</li>
+            <li class="cli">rach_procedure_mode</li>
+            <li class="cli">rnti_type</li>
+            <li class="cli">rnti_val</li>
+            <li class="cli">ta_include</li>
+            <li class="cli">timing_advance</li>
+            <li class="cli">sfn</li>
+            <li class="cli">sub_fn</li>
+        </ul>
+        <ul class="yiji">
+            <li>
+                <span class="text" style="float:left;">lte_nb_sys_info</span>
+                <span style="float:right;"> <img src="img/icon7.png" alt=""> </span>
+            </li>
+        </ul>
+        <ul class="erji erji3">
+            <li class="teshu">id</li>
+            <li class="teshu">timestamp</li>
+            <li class="cli">code</li>
             <li class="cli">op_mode</li>
             <li class="cli">meas_bw</li>
             <li class="cli">cell_id</li>
             <li class="cli">frequency</li>
             <li class="cli">inst_meas_rsrp</li>
             <li class="cli">srxlev</li>
-            <li class="cli">test_id</li>
-        </ul>
-        <ul class="yiji">
-            <li>
-                <span class="text" style="float:left;">t_servicepattern</span>
-                <span style="float:right;"> <img src="img/icon7.png" alt=""> </span>
-            </li>
-        </ul>
-        <ul class="erji erji2">
-            <li class="teshu">id</li>
-            <li class="teshu">time</li>
-            <li class="cli">message</li>
-            <li class="cli">length</li>
-            <li class="cli">test_id</li>
-            <li class="cli">timediffms</li>
-        </ul>
-        <ul class="yiji">
-            <li>
-                <span class="text" style="float:left;">t_txreport</span>
-                <span style="float:right;"> <img src="img/icon7.png" alt=""> </span>
-            </li>
-        </ul>
-        <ul class="erji erji3">
-            <li class="teshu">id</li>
-            <li class="teshu">time</li>
-            <li class="cli">npusch_timing_sfn</li>
-            <li class="cli">npusch_timing_sub_fn</li>
-            <li class="cli">supersubfn</li>
-            <li class="cli">npusch_format</li>
-            <li class="cli">is_msg3</li>
-            <li class="cli">itbs</li>
-            <li class="cli">repetition_number</li>
-            <li class="cli">num_ru</li>
-            <li class="cli">rv_index</li>
-            <li class="cli">num_tone</li>
-            <li class="cli">start_tone</li>
-            <li class="cli">tx_power</li>
-            <li class="cli">ack_nack</li>
-            <li class="cli">npusch_format_1_tx_type</li>
-            <li class="cli">rflm</li>
-            <li class="cli">prach_collision_valid</li>
-            <li class="cli">test_id</li>
         </ul>
     </div>
     <div class="main">
+        <!--自定义rsrp-->
+        <div class="rsrpZiDingYiBox">
+            <div class="rsrpZiDingYi">
+                <ul>
+                    <li class="button">
+                        <span style="width:65px;height:30px;line-height:30px;border-radius:5px;background:orange;float:right;color:#fff;text-align: center;margin:8px 29px;cursor:pointer;">取消</span>
+                        <span style="width:65px;height:30px;line-height:30px;border-radius:5px;background:cornflowerblue;float:right;color:#fff;text-align: center;margin:8px 29px;cursor:pointer;">确定</span>
+                    </li>
+                    <li><span style="background:#ff0000;"></span>RSRP<= <input type="text" placeholder="-110"></li>
+                    <li><span style="background:#ff00ff;"></span> <input type="text" placeholder="-110"> < RSRP<= <input type="text" placeholder="-105"></li>
+                    <li><span style="background:#ffff00;"></span> <input type="text" placeholder="-105"> < RSRP<= <input type="text" placeholder="-100"></li>
+                    <li><span style="background:#00ffff;"></span> <input type="text" placeholder="-100"> < RSRP<= <input type="text" placeholder="-95"></li>
+                    <li><span style="background:#0101fe;"></span> <input type="text" placeholder="-95"> < RSRP<= <input type="text" placeholder="-85"></li>
+                    <li><span style="background:#30fe30;"></span> <input type="text" placeholder="-85"> < RSRP<= <input type="text" placeholder="-70"></li>
+                    <li><span style="background:#009600;"></span> <input type="text" placeholder="-70"> < RSRP<= <input type="text" placeholder="-50"></li>
+                    <li><span style="background:#BCF2BC;"></span> <input type="text" placeholder="-50"> < RSRP</li>
+                </ul>
+            </div>
+        </div>
         <!--表-->
-        <div class="mianTable">
+        <div class="mianTable" style="display:block">
             <div class="title">
-                <div class="left">r_rf</div>
+                <div class="left">map</div>
                 <ul class="right">
                     <li class="big"> <img src="img/big.png" alt=""> </li>
                     <li class="false"> <img src="img/false.png" alt=""></li>
                 </ul>
             </div>
-            <div class="conTable conTable1">
+            <div class="conTable">
+                <div class="con" style="width:100%;height:100%;position:relative;">
+                    map加载中...
+                    <div id="map1" style="width:100%;height:100%;position:absolute;left:0;top:0;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="mianTable">
+            <div class="title">
+                <div class="left">信令</div>
+                <ul class="right">
+                    <li class="big"> <img src="img/big.png" alt=""> </li>
+                    <li class="false"> <img src="img/false.png" alt=""></li>
+                </ul>
+            </div>
+            <div class="conTable conTableT conTable0" style="height:204px;">
+                <table class="table">
+                    <thead>
+                    <tr style="background:#f9f9f9">
+                        <th>code</th>
+                        <th>time</th>
+                        <th class="hid">version</th>
+                        <th class="hid">rrc_rel</th>
+                        <th class="hid">rrc_ver_major</th>
+                        <th class="hid">rrc_ver_minor</th>
+                        <th class="hid">upOrDown</th>
+                        <th class="hid">messageType</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="conTable0Conn" style="width:100%;height:100px;background:#eeeeee;overflow:scroll;">
+                <div class="title" style="width:100%;height:20px;line-height:20px;background:none;font-size:12px;">信令详情...</div>
+            </div>
+        </div>
+        <div class="mianTable">
+            <div class="title">
+                <div class="left">lte_nb_msg1</div>
+                <ul class="right">
+                    <li class="big"> <img src="img/big.png" alt=""> </li>
+                    <li class="false"> <img src="img/false.png" alt=""></li>
+                </ul>
+            </div>
+            <div class="conTable conTableT conTable1">
                 <table class="table">
                     <thead>
                     <tr style="background:#f9f9f9">
                         <th>id</th>
-                        <th>time</th>
+                        <th>timestamp</th>
+                        <th class="hid">code</th>
+                        <th class="hid">scheduled_sfn</th>
+                        <th class="hid">scheduled_sub_fn</th>
+                        <th class="hid">ul_earfcn</th>
+                        <th class="hid">ul_frequence_offset</th>
+                        <th class="hid">cp_length</th>
+                        <th class="hid">coverage_level</th>
+                        <th class="hid">subcarrier_index</th>
+                        <th class="hid">subcarrier_offset</th>
+                        <th class="hid">prach_tx_power</th>
+                        <th class="hid">num_rep_data</th>
+                        <th class="hid">ra_rnti</th>
+                        <th class="hid">prachtx_sfn</th>
+                        <th class="hid">prachtx_sub_fn</th>
+                        <th class="hid">prach_win_s_sfn</th>
+                        <th class="hid">prach_win_s_sub_fn</th>
+                        <th class="hid">prach_win_e_sfn</th>
+                        <th class="hid">prach_win_e_sub_fn</th>
+                        <th class="hid">act_prach_tx_power</th>
+                        <th class="hid">ho_offset</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mianTable">
+            <div class="title">
+                <div class="left">lte_nb_msg2</div>
+                <ul class="right">
+                    <li class="big"> <img src="img/big.png" alt=""> </li>
+                    <li class="false"> <img src="img/false.png" alt=""></li>
+                </ul>
+            </div>
+            <div class="conTable conTableT conTable2">
+                <table class="table">
+                    <thead>
+                    <tr style="background:#f9f9f9">
+                        <th>id</th>
+                        <th>timestamp</th>
+                        <th class="hid">code</th>
+                        <th class="hid">rach_procedure_mode</th>
+                        <th class="hid">rnti_type</th>
+                        <th class="hid">rnti_val</th>
+                        <th class="hid">ta_include</th>
+                        <th class="hid">timing_advance</th>
+                        <th class="hid">sfn</th>
+                        <th class="hid">sub_fn</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mianTable">
+            <div class="title">
+                <div class="left">lte_nb_sys_info</div>
+                <ul class="right">
+                    <li class="big"> <img src="img/big.png" alt=""> </li>
+                    <li class="false"> <img src="img/false.png" alt=""></li>
+                </ul>
+            </div>
+            <div class="conTable conTableT conTable3">
+                <table class="table">
+                    <thead>
+                    <tr style="background:#f9f9f9">
+                        <th>id</th>
+                        <th>timestamp</th>
+                        <th class="hid">code</th>
                         <th class="hid">op_mode</th>
                         <th class="hid">meas_bw</th>
                         <th class="hid">cell_id</th>
                         <th class="hid">frequency</th>
                         <th class="hid">inst_meas_rsrp</th>
                         <th class="hid">srxlev</th>
-                        <th class="hid">test_id</th>
-                    </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-        <div class="mianTable">
-            <div class="title">
-                <div class="left">t_servicepattern</div>
-                <ul class="right">
-                    <li class="big"> <img src="img/big.png" alt=""> </li>
-                    <li class="false"> <img src="img/false.png" alt=""></li>
-                </ul>
-            </div>
-            <div class="conTable conTable2">
-                <table class="table">
-                    <thead>
-                    <tr style="background:#f9f9f9">
-                        <th>id</th>
-                        <th>time</th>
-                        <th class="hid">message</th>
-                        <th class="hid">length</th>
-                        <th class="hid">test_id</th>
-                        <th class="hid">timediffms</th>
-                    </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-        <div class="mianTable">
-            <div class="title">
-                <div class="left">t_txreport</div>
-                <ul class="right">
-                    <li class="big"> <img src="img/big.png" alt=""> </li>
-                    <li class="false"> <img src="img/false.png" alt=""></li>
-                </ul>
-            </div>
-            <div class="conTable conTable3">
-                <table class="table">
-                    <thead>
-                    <tr style="background:#f9f9f9">
-                        <th>id</th>
-                        <th>time</th>
-                        <th class="hid">npusch_timing_sfn</th>
-                        <th class="hid">npusch_timing_sub_fn</th>
-                        <th class="hid">supersubfn</th>
-                        <th class="hid">npusch_format</th>
-                        <th class="hid">is_msg3</th>
-                        <th class="hid">itbs</th>
-                        <th class="hid">repetition_number</th>
-                        <th class="hid">num_ru</th>
-                        <th class="hid">rv_index</th>
-                        <th class="hid">num_tone</th>
-                        <th class="hid">start_tone</th>
-                        <th class="hid">tx_power</th>
-                        <th class="hid">ack_nack</th>
-                        <th class="hid">npusch_format_1_tx_type</th>
-                        <th class="hid">rflm</th>
-                        <th class="hid">prach_collision_valid</th>
-                        <th class="hid">test_id</th>
                     </tr>
                     </thead>
                     <tbody></tbody>
@@ -236,81 +341,140 @@
         <div class="zhezhaoTable">
             <div class="mianBigTable">
                 <div class="title">
-                    <div class="left">r_rf</div>
+                    <div class="left">map</div>
                     <ul class="right">
                         <li class="false"> <img src="img/false.png" alt=""></li>
                     </ul>
                 </div>
                 <div class="conTable conTable1">
+                    <div class="con" style="width:100%;height:100%;position:relative;">
+                        map加载中...
+                        <div id="map2" style="width:100%;height:100%;position:absolute;left:0;top:0;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="zhezhaoTable">
+            <div class="mianBigTable">
+                <div class="title">
+                    <div class="left">信令</div>
+                    <ul class="right">
+                        <li class="false"> <img src="img/false.png" alt=""></li>
+                    </ul>
+                </div>
+                <div class="conTable conTableT conTable0" style="height:480px">
+                    <table class="table">
+                        <thead>
+                        <tr style="background:#f9f9f9">
+                            <th>code</th>
+                            <th>time</th>
+                            <th class="hid">version</th>
+                            <th class="hid">rrc_rel</th>
+                            <th class="hid">rrc_ver_major</th>
+                            <th class="hid">rrc_ver_minor</th>
+                            <th class="hid">upOrDown</th>
+                            <th class="hid">messageType</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="conTable0Conn" style="width:100%;height:160px;background:#eeeeee;overflow:scroll;">
+                    <div class="title" style="width:100%;height:20px;line-height:20px;background:none;font-size:12px;">信令详情...</div>
+                </div>
+            </div>
+        </div>
+        <div class="zhezhaoTable">
+            <div class="mianBigTable">
+                <div class="title">
+                    <div class="left">lte_nb_msg1</div>
+                    <ul class="right">
+                        <li class="false"> <img src="img/false.png" alt=""></li>
+                    </ul>
+                </div>
+                <div class="conTable conTableT conTable1">
                     <table class="table">
                         <thead>
                         <tr style="background:#f9f9f9">
                             <th>id</th>
-                            <th>time</th>
+                            <th>timestamp</th>
+                            <th class="hid">code</th>
+                            <th class="hid">scheduled_sfn</th>
+                            <th class="hid">scheduled_sub_fn</th>
+                            <th class="hid">ul_earfcn</th>
+                            <th class="hid">ul_frequence_offset</th>
+                            <th class="hid">cp_length</th>
+                            <th class="hid">coverage_level</th>
+                            <th class="hid">subcarrier_index</th>
+                            <th class="hid">subcarrier_offset</th>
+                            <th class="hid">prach_tx_power</th>
+                            <th class="hid">num_rep_data</th>
+                            <th class="hid">ra_rnti</th>
+                            <th class="hid">prachtx_sfn</th>
+                            <th class="hid">prachtx_sub_fn</th>
+                            <th class="hid">prach_win_s_sfn</th>
+                            <th class="hid">prach_win_s_sub_fn</th>
+                            <th class="hid">prach_win_e_sfn</th>
+                            <th class="hid">prach_win_e_sub_fn</th>
+                            <th class="hid">act_prach_tx_power</th>
+                            <th class="hid">ho_offset</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="zhezhaoTable">
+            <div class="mianBigTable">
+                <div class="title">
+                    <div class="left">lte_nb_msg2</div>
+                    <ul class="right">
+                        <li class="false"> <img src="img/false.png" alt=""></li>
+                    </ul>
+                </div>
+                <div class="conTable conTableT conTable2">
+                    <table class="table">
+                        <thead>
+                        <tr style="background:#f9f9f9">
+                            <th>id</th>
+                            <th>timestamp</th>
+                            <th class="hid">code</th>
+                            <th class="hid">rach_procedure_mode</th>
+                            <th class="hid">rnti_type</th>
+                            <th class="hid">rnti_val</th>
+                            <th class="hid">ta_include</th>
+                            <th class="hid">timing_advance</th>
+                            <th class="hid">sfn</th>
+                            <th class="hid">sub_fn</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="zhezhaoTable">
+            <div class="mianBigTable">
+                <div class="title">
+                    <div class="left">lte_nb_sys_info</div>
+                    <ul class="right">
+                        <li class="false"> <img src="img/false.png" alt=""></li>
+                    </ul>
+                </div>
+                <div class="conTable conTableT conTable3">
+                    <table class="table">
+                        <thead>
+                        <tr style="background:#f9f9f9">
+                            <th>id</th>
+                            <th>timestamp</th>
+                            <th class="hid">code</th>
                             <th class="hid">op_mode</th>
                             <th class="hid">meas_bw</th>
                             <th class="hid">cell_id</th>
                             <th class="hid">frequency</th>
                             <th class="hid">inst_meas_rsrp</th>
                             <th class="hid">srxlev</th>
-                            <th class="hid">test_id</th>
-                        </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="zhezhaoTable">
-            <div class="mianBigTable">
-                <div class="title">
-                    <div class="left">t_servicepattern</div>
-                    <ul class="right">
-                        <li class="false"> <img src="img/false.png" alt=""></li>
-                    </ul>
-                </div>
-                <div class="conTable conTable2">
-                    <table class="table">
-                        <thead>
-                        <tr style="background:#f9f9f9">
-                            <th>id</th>
-                            <th>time</th>
-                            <th class="hid">message</th>
-                            <th class="hid">length</th>
-                            <th class="hid">test_id</th>
-                        </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="zhezhaoTable">
-            <div class="mianBigTable">
-                <div class="title">
-                    <div class="left">t_txreport</div>
-                    <ul class="right">
-                        <li class="false"> <img src="img/false.png" alt=""></li>
-                    </ul>
-                </div>
-                <div class="conTable conTable3">
-                    <table class="table">
-                        <thead>
-                        <tr style="background:#f9f9f9">
-                            <th>id</th>
-                            <th>time</th>
-                            <th class="hid">npusch_timing_sfn</th>
-                            <th class="hid">npusch_timing_sub_fn</th>
-                            <th class="hid">supersubfn</th>
-                            <th class="hid">npusch_format</th>
-                            <th class="hid">is_msg3</th>
-                            <th class="hid">itbs</th>
-                            <th class="hid">repetition_number</th>
-                            <th class="hid">num_ru</th>
-                            <th class="hid">rv_index</th>
-                            <th class="hid">num_tone</th>
-                            <th class="hid">start_tone</th>
-                            <th class="hid">tx_power</th>
                         </tr>
                         </thead>
                         <tbody></tbody>

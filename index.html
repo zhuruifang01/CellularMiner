@@ -2,84 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cellular Miner</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/index.css">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="js/jquery.min.js"></script>
-    <script src="js/index.js"></script>
+    <title>管理员登陆</title>
     <style>
-        html,body{overflow:hidden;}
+        html,body{
+            width:100%;height:100%;
+            margin:0;padding:0;
+            background:#7eb2dc;
+        }
+        .box{
+            width:500px;
+            height:400px;
+            margin:0 auto;
+            position:absolute;
+            top:0;bottom:0;left:0;right:0;margin:auto;
+        }
+        .header{
+            width:100%;
+            height:100px;
+            line-height:100px;
+            color:#fff;
+            text-align:center;
+            font-size:30px;
+        }
+        form{
+            width:100%;
+            height: 300px;
+            background:#f7f7f7;
+        }
+        form .title{
+            width:90%;
+            height:50px;
+            color:#7eb2dc;
+            line-height:50px;
+            margin:0 auto;
+            font-size:23px;
+            border-bottom:2px solid #7eb2dc;
+        }
+        .input{
+            width:90%;
+            height:45px;
+            margin:0 auto;
+            margin-top:30px;
+        }
+        .input input{
+            width:100%;height:100%;
+            font-size:18px;
+        }
+        form .true{
+            width:100px;
+            height:40px;
+            background:#7eb2dc;
+            color:#fff;
+            line-height:40px;
+            float:right;
+            text-align:center;
+            margin-top:15px;
+            margin-right:19px;
+        }
     </style>
 </head>
 <body>
-<div class="header">
-     <ul style="float:left" class="left">
-         <li class="logo">LOGO</li>
-         <li>Cellular Miner</li>
-     </ul>
-     <ul style="float:right;width:250px;">
-         <li><div id="show"></div></li>
-     </ul>
-</div>
-<div class="contain">
-    <div class="menu">
-        <ul class="active">
-            <li>
-                <span> <img src="img/icon01.png" alt=""> </span>
-                <span>数据</span>
-            </li>
-        </ul>
-        <ul id="canshu">
-            <a href="canshu.html">
-            <li>
-                <span> <img src="img/icon2.png" alt=""> </span>
-                <span>参数</span>
-            </li>
-            </a>
-        </ul>
-        <ul>
-            <a href="xinling.html">
-                <li>
-                    <span> <img src="img/icon2.png" alt=""> </span>
-                    <span>信令</span>
-                </li>
-            </a>
-        </ul>
-        <ul>
-            <a href="map.html">
-            <li>
-                <span> <img src="img/icon3.png" alt=""> </span>
-                <span>地图</span>
-            </li>
-            </a>
-        </ul>
-        <ul>
-            <a href="baobiao.html">
-            <li>
-                <span> <img src="img/icon4.png" alt=""> </span>
-                <span>报表</span>
-            </li>
-            </a>
-        </ul>
-        <ul>
-            <a href="fenxixian.html">
-            <li>
-                <span style="margin-right:px;"> <img src="img/icon5.png" alt=""> </span>
-                <span>分析项</span>
-            </li>
-            </a>
-        </ul>
-    </div>
-    <div class="menuTwo menuTwo_shuju">
-        <ul class="title">
-            <li class="add" style="float:left;position:relative;">
-                +
-                <input type="file" id="file">
-            </li>
-            <li class="delete" style="float:right;margin-right:3px;background:#E95153"> - </li>
-        </ul>
-    </div>
-    <div class="main"></div>
-</div>
+      <div class="box">
+          <div class="header">Cellular Miner</div>
+          <form action="">
+              <div class="title">请登陆</div>
+              <div class="input input1"><input type="text" placeholder="用户名"></div>
+              <div class="input input2"><input type="password" placeholder="密码"></div>
+              <div class="true">登陆</div>
+          </form>
+      </div>
 </body>
+<script>
+$(function(){
+    $(".box .true").click(function(){
+        var use = $(".input1 input").val();
+        var pass = $(".input2 input").val();
+        if(use=="admin" && pass=="admin"){
+            window.location.href="shuju.html";
+        }else{
+            alert('用户名或密码不正确！');
+        }
+    });
+});
+</script>
 </html>
