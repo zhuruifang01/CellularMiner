@@ -512,8 +512,7 @@ $(function(){
             var table0Time0 = show()+table1Time;
             var table0getTime = new Date(table1Time0).getTime();
             if(table0getTime >= getTime){ //规则：获取表中小于点击的主表时间戳离得最近的一行数据
-                alert(table0getTime);alert(i);
-                if(i>=1){alert(3);
+                if(i>=1){
                     $(".conTable0 .table tbody tr:nth-child(odd)").css("background",'#F1F5FF');
                     $(".conTable0 .table tbody tr:nth-child(even)").css("background",'#fff');
                     $(".conTable .table tbody tr").removeClass("gaoliang");
@@ -522,7 +521,7 @@ $(function(){
                         $(".conTable0 .table tbody tr").eq(i-1).addClass("gaoliang");
                         var juli = 20*(i-2);
                         $(".conTable0").animate({scrollTop:juli},300);
-                    }else{alert(5);
+                    }else{
                         $(".conTable0 .table tbody tr").eq(i).css("background","#8ABDED");
                         $(".conTable0 .table tbody tr").eq(i).addClass("gaoliang");
                     }
