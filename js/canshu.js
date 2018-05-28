@@ -167,7 +167,11 @@ $(function(){
             //点击信令:
             $(".conTable0 .table tbody tr").on('click',function(){
                 var index2=$(this).index();
-                $(".conTable0Conn .title").html(xinlingData.rrc[index2].data);
+                $(".conTable0Conn .title").empty();
+                for(var i=0;i<xinlingData.rrc[index2].data.length;i++){
+                    $(".conTable0Conn .title").append("<li>"+xinlingData.rrc[index2].data[i]+"</li>");
+                }
+
             })
         }else if(yijiText=='lte_nb_msg1'){
             var showORhide = $(".conTable1 .table tbody").css("height");
@@ -516,12 +520,12 @@ $(function(){
                     $(".conTable0 .table tbody tr:nth-child(odd)").css("background",'#F1F5FF');
                     $(".conTable0 .table tbody tr:nth-child(even)").css("background",'#fff');
                     $(".conTable .table tbody tr").removeClass("gaoliang");
-                    if(table1getTime > getTime){alert(4)
+                    if(table1getTime > getTime){
                         $(".conTable0 .table tbody tr").eq(i-1).css("background","#8ABDED");
                         $(".conTable0 .table tbody tr").eq(i-1).addClass("gaoliang");
                         var juli = 20*(i-2);
                         $(".conTable0").animate({scrollTop:juli},300);
-                    }else{
+                    }else{alert(5);
                         $(".conTable0 .table tbody tr").eq(i).css("background","#8ABDED");
                         $(".conTable0 .table tbody tr").eq(i).addClass("gaoliang");
                     }
