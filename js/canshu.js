@@ -105,10 +105,14 @@ $(function(){
         $(".menuTwo_canshu .erji").eq(index).hide(500);
     });
     //放大表 按钮:
+    var data2=[]; //全局记录map高亮点的经纬度
     $(".mianTable .title .right .big").click(function(){
         var index=$(this).index(".mianTable .title .right .big");
         $(".contain .main .zhezhaoTable").eq(index).slideDown(500);
-        if(index==0){map("map2");}
+        if(index==0){
+            mapName("map2");
+            mapFun(data2,mapData[0].longitude,mapData[0].latitude,121.51500967192734,31.300297669737418);
+        }
     });
     //缩小表 按钮：
     $(".zhezhaoTable .title .right .false").click(function(){
@@ -166,10 +170,11 @@ $(function(){
             }
             //点击信令:
             $(".conTable0 .table tbody tr").on('click',function(){
+                $(".zhezhaoXinling").css("display","block");
                 var index2=$(this).index();
-                $(".conTable0Conn .title").empty();
+                $(".zhezhaoXinling .conTable ul").empty();
                 for(var i=0;i<xinlingData.rrc[index2].data.length;i++){
-                    $(".conTable0Conn .title").append("<li>"+xinlingData.rrc[index2].data[i]+"</li>");
+                    $(".zhezhaoXinling .conTable ul").append("<li>"+xinlingData.rrc[index2].data[i]+"</li>");
                 }
 
             })
@@ -253,19 +258,23 @@ $(function(){
             mapData = result.map;
         }
     });
-    function map(mm){
-        if(mm == "map1"){
-            var map = new BMap.Map("map1");          // 创建地图实例
-        }else{
-            var map = new BMap.Map("map2");          // 创建地图实例
-        }
+    var lat1, lng1, lat2, lng2;  //记录测距数据
+
+// 创建地图实例
+    function mapName(mm) {
+        map = new BMap.Map(mm);
         var zhongxin=Math.floor(mapData.length/2);
         var point = new BMap.Point(mapData[zhongxin].longitude,mapData[zhongxin].latitude);  // 创建点坐标
         map.centerAndZoom(point,21);
-//初始：
+    }
+    mapName("map1");
+//覆盖物函数：【参数依次为(高亮经纬度，连线起始经纬度，结束经纬度)】
+    function mapFun(data2,startlng,startlat,endlng,endlat){
+        //初始：
+        map.clearOverlays();  //清除所有覆盖物
         function aa() {
             //海量点 全部显示：
-            function dadian(color,rsrp) {
+            function dadian(color,rsrp,time) {
                 var points = [];  // 添加海量点数据
                 points.push(new BMap.Point(mapData[i].longitude, mapData[i].latitude));
                 var options = {
@@ -276,29 +285,34 @@ $(function(){
                 var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection
                 pointCollection.addEventListener('click', function (e) {
                     alert('经纬度:（' + e.point.lng + ',' + e.point.lat+'）\n'+'rsrp：'+rsrp);  // 监听点击事件
-                    $(".right .bottom").scrollTop(30);
+                    var Time0 = show()+time;
+                    var getTime = new Date(Time0).getTime(); //点中的时间转化为时间戳
+                    clearInterval(jishiqi);
+                    liandong(getTime); //调用联动函数
 
+                    //测距经纬度赋值:
+                    lat1=e.point.lat;lng1=e.point.lng;
                 });
                 map.addOverlay(pointCollection);  // 添加Overlay
             }
             for (var i = 0; i < mapData.length; i++) {
                 if (document.createElement('canvas').getContext) {  // 判断当前浏览器是否支持绘制海量点
                     if(mapData[i].rsrp <= -110){
-                        dadian('#ff0000',mapData[i].rsrp);
+                        dadian('#ff0000',mapData[i].rsrp,mapData[i].time);
                     }else if(-110<mapData[i].rsrp && mapData[i].rsrp<= -105){
-                        dadian('#ff00ff',mapData[i].rsrp);
+                        dadian('#ff00ff',mapData[i].rsrp,mapData[i].time);
                     }else if(-105<mapData[i].rsrp && mapData[i].rsrp<= -100){
-                        dadian('#ffff00',mapData[i].rsrp);
+                        dadian('#ffff00',mapData[i].rsrp,mapData[i].time);
                     }else if(-100<mapData[i].rsrp && mapData[i].rsrp<= -95){
-                        dadian('#00ffff',mapData[i].rsrp);
+                        dadian('#00ffff',mapData[i].rsrp,mapData[i].time);
                     }else if(-95<mapData[i].rsrp && mapData[i].rsrp<= -85){
-                        dadian('#0101fe',mapData[i].rsrp);
+                        dadian('#0101fe',mapData[i].rsrp,mapData[i].time);
                     }else if(-85<mapData[i].rsrp && mapData[i].rsrp<= -70){
-                        dadian('#30fe30',mapData[i].rsrp);
+                        dadian('#30fe30',mapData[i].rsrp,mapData[i].time);
                     }else if(-70<mapData[i].rsrp && mapData[i].rsrp<= -50){
-                        dadian('#009600',mapData[i].rsrp);
+                        dadian('#009600',mapData[i].rsrp,mapData[i].time);
                     }else if(-50<mapData[i].rsrp && mapData[i].rsrp<= -50){
-                        dadian('#BCF2BC',mapData[i].rsrp);
+                        dadian('#BCF2BC',mapData[i].rsrp,mapData[i].time);
                     }
                 }else {
                     alert('请在chrome、safari、IE8+以上浏览器查看本示例');
@@ -311,6 +325,7 @@ $(function(){
                     {"longitude": 121.51500967192734,"latitude": 31.300297669737418,"data":[{'pci':10,'j1':240,'color':"red"},{'pci':20,'j1':0,'color':"green"},{'pci':25,'j1':120,'color':"yellow"},{'pci':50,'j1':60,'color':"blue"}]}
                 ]
             };
+
             function mapMarker(lng,lat,pci,rotate,icon,datalist){
                 var point = new BMap.Point(lng,lat);
                 if(icon == "red"){
@@ -333,7 +348,8 @@ $(function(){
                     }else if(datalist.length==4){
                         alert('经纬度('+ p.lng + ',' + p.lat+')\n'+'小区1(红)：pci值是'+datalist[0].pci+'\n小区2(绿)：pci值是'+datalist[1].pci+'\n小区3(黄)：pci值是:'+datalist[2].pci+'\n小区4(蓝)：pci值是'+datalist[3].pci);  // 监听点击事件
                     }
-
+                    //测距经纬度赋值:
+                    lat2=p.lat;lng2=p.lng;
                 }
             }
             for(var i=0;i<pciDate.pci.length;i++){
@@ -341,30 +357,39 @@ $(function(){
                     mapMarker(pciDate.pci[i].longitude,pciDate.pci[i].latitude,pciDate.pci[i].data[j].pci,pciDate.pci[i].data[j].j1,pciDate.pci[i].data[j].color,pciDate.pci[i].data);
                 }
             }
-        }
-        aa();
-    }
-    map("map1");
-    //高亮 打点函数：
-    var data2=[];
-    function bb() {
-        map1.clearOverlays();
-        map("map1");
-        if (document.createElement('canvas').getContext) {  // 判断当前浏览器是否支持绘制海量点
-            var points = [];
-            points.push(new BMap.Point(data2[0], data2[1]));
-            var options = {
-                size: BMAP_POINT_SIZE_BIG,
-                shape:3,
-                color: 'red'
+
+            //覆盖物：【画线函数】
+            function line(startlng,startlat,endlng,endlat){
+                var polyline = new BMap.Polyline([
+                    new BMap.Point(startlng,startlat),
+                    new BMap.Point(endlng,endlat)
+                ], {strokeColor:"red", strokeWeight:2, strokeOpacity:1});
+                map.addOverlay(polyline);
             }
-            var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection
-            map.addOverlay(pointCollection);  // 添加Overlay
-        } else {
-            alert('请在chrome、safari、IE8+以上浏览器查看本示例');
+            line(startlng,startlat,endlng,endlat);//小区连线
+        }
+        aa(); //rsrp打点
+        bb(); //高亮打点
+        function bb(){
+            //var data2=[121.51495503041305,31.300397669737418];
+            if (document.createElement('canvas').getContext) {  // 判断当前浏览器是否支持绘制海量点
+                var points = [];
+                points.push(new BMap.Point(data2[0], data2[1]));
+                var options = {
+                    size: BMAP_POINT_SIZE_BIG,
+                    shape:1,
+                    color: 'red'
+                }
+                var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection
+                map.addOverlay(pointCollection);  // 添加Overlay
+            } else {
+                alert('请在chrome、safari、IE8+以上浏览器查看本示例');
+            }
         }
     }
 
+    var startlng; var startlat;
+    mapFun(data2,mapData[0].longitude,mapData[0].latitude,121.51500967192734,31.300297669737418);
 //=======多表联动： 按照时间戳来======================================================
     function show(){
         var mydate = new Date();
@@ -392,11 +417,6 @@ $(function(){
                 index0=3;
             }
         //获取点中表的某行的对应时间：
-            $(".conTableT .table tbody tr:nth-child(odd)").css("background",'#F1F5FF');
-            $(".conTableT .table tbody tr:nth-child(even)").css("background",'#fff');
-            $(".conTableT .table tbody tr").removeClass("gaoliang");
-            $(".conTableT .table tbody").eq(index0).children("tr").eq(index).css("background","#8ABDED");
-            $(".conTableT .table tbody").eq(index0).children("tr").eq(index).addClass("gaoliang");
             var Time = $(".conTableT .table tbody").eq(index0).children("tr").eq(index).children("td:nth-child(2)").html(); //获取点中的时间
             var Time0 = show()+Time;
             var getTime = new Date(Time0).getTime(); //点中的时间转化为时间戳
@@ -405,28 +425,40 @@ $(function(){
     //联动的函数：
     function liandong(getTime){
         //联动地图:
-        // for(var i=0;i<mapData.length;i++){
-        //     var mapTime = mapData.time;
-        //     var mapTime0 = show()+mapTime;
-        //     var mapTime0getTime = new Date(mapTime0).getTime();
-        //     if(mapTime0getTime >= getTime){ //规则：获取表中小于点击的主表时间戳离得最近的一行数据
-        //         if(i>=1){
-        //             if(mapTime0getTime > getTime){alert(7);
-        //                 data2= [];
-        //                 data2.push(mapData[i-1].longitude);
-        //                 data2.push(mapData[i-1].latitude);
-        //                 bb();
-        //             }else{
-        //                 data2= [];
-        //                 data2.push(mapData[i].longitude);
-        //                 data2.push(mapData[i].latitude);
-        //                 bb();
-        //             }
-        //         }
-        //         break;
-        //     }
-        // }
-
+        // data2=[121.51495503041305,31.300397669737418];
+        // mapFun(data2,121.51495503041305,31.30039766973741);
+        for(var i=0;i<mapData.length;i++){
+            var mapTime = mapData[i].time;
+            var mapTime0 = show()+mapTime;
+            var mapTime0getTime = new Date(mapTime0).getTime();
+            if(mapTime0getTime >= getTime){ //规则：获取表中小于点击的主表时间戳离得最近的一行数据
+                if(i>=1){
+                    if(mapTime0getTime > getTime){
+                        data2= [];
+                        data2.push(mapData[i-1].longitude);
+                        data2.push(mapData[i-1].latitude);
+                        startlng=mapData[i-1].longitude;
+                        startlat=mapData[i-1].latitude;
+                        mapFun(data2,startlng,startlat,121.51500967192734,31.300297669737418);
+                    }else{
+                        data2= [];
+                        data2.push(mapData[i].longitude);
+                        data2.push(mapData[i].latitude);
+                        startlng=mapData[i].longitude;
+                        startlat=mapData[i].latitude;
+                        mapFun(data2,startlng,startlat,121.51500967192734,31.300297669737418);
+                    }
+                }else{
+                    data2= [];
+                    data2.push(mapData[i].longitude);
+                    data2.push(mapData[i].latitude);
+                    startlng=mapData[i].longitude;
+                    startlat=mapData[i].latitude;
+                    mapFun(data2,startlng,startlat,121.51500967192734,31.300297669737418);
+                }
+                break;
+            }
+        }
         //联动表1：
         for(var i=0;i<tableData.lt1.length;i++){
                 if(i==tableData.lt1.length-1){
@@ -441,17 +473,25 @@ $(function(){
                         $(".conTable1 .table tbody tr:nth-child(odd)").css("background",'#F1F5FF');
                         $(".conTable1 .table tbody tr:nth-child(even)").css("background",'#fff');
                         $(".conTable .table tbody tr").removeClass("gaoliang");
+
                         if(table1getTime > getTime){
                             $(".conTable1 .table tbody tr").eq(i-1).css("background","#8ABDED");
                             $(".conTable1 .table tbody tr").eq(i-1).addClass("gaoliang");
+                            $(".zhezhaoTable .conTable1 .table tbody tr").eq(i-1).css("background","#8ABDED");
+                            $(".zhezhaoTable .conTable1 .table tbody tr").eq(i-1).addClass("gaoliang");
                             var juli = 20*(i-2);
                             $(".conTable1").animate({scrollTop:juli},300);
-                            // $(".conTable1").scrollTop(juli);
-
                         }else{
                             $(".conTable1 .table tbody tr").eq(i).css("background","#8ABDED");
                             $(".conTable1 .table tbody tr").eq(i).addClass("gaoliang");
+                            $(".zhezhaoTable .conTable1 .table tbody tr").eq(i).css("background","#8ABDED");
+                            $(".zhezhaoTable .conTable1 .table tbody tr").eq(i).addClass("gaoliang");
                         }
+                    }else{
+                        $(".conTable1 .table tbody tr").eq(i).css("background","#8ABDED");
+                        $(".conTable1 .table tbody tr").eq(i).addClass("gaoliang");
+                        $(".zhezhaoTable .conTable1 .table tbody tr").eq(i).css("background","#8ABDED");
+                        $(".zhezhaoTable .conTable1 .table tbody tr").eq(i).addClass("gaoliang");
                     }
                     break;
                 }
@@ -473,12 +513,21 @@ $(function(){
                     if(table2getTime > getTime){
                         $(".conTable2 .table tbody tr").eq(i-1).css("background","#8ABDED");
                         $(".conTable2 .table tbody tr").eq(i-1).addClass("gaoliang");
+                        $(".zhezhaoTable .conTable2 .table tbody tr").eq(i-1).css("background","#8ABDED");
+                        $(".zhezhaoTable .conTable2 .table tbody tr").eq(i-1).addClass("gaoliang");
                         var juli = 20*(i-2);
                         $(".conTable2").animate({scrollTop:juli},300);
                     }else{
                         $(".conTable2 .table tbody tr").eq(i).css("background","#8ABDED");
                         $(".conTable2 .table tbody tr").eq(i).addClass("gaoliang");
+                        $(".zhezhaoTable .conTable2 .table tbody tr").eq(i).css("background","#8ABDED");
+                        $(".zhezhaoTable .conTable2 .table tbody tr").eq(i).addClass("gaoliang");
                     }
+                }else{
+                    $(".conTable2 .table tbody tr").eq(i).css("background","#8ABDED");
+                    $(".conTable2 .table tbody tr").eq(i).addClass("gaoliang");
+                    $(".zhezhaoTable .conTable2 .table tbody tr").eq(i).css("background","#8ABDED");
+                    $(".zhezhaoTable .conTable2 .table tbody tr").eq(i).addClass("gaoliang");
                 }
                 break;
             }
@@ -496,16 +545,25 @@ $(function(){
                 if(i>=1){
                     $(".conTable3 .table tbody tr:nth-child(odd)").css("background",'#F1F5FF');
                     $(".conTable3 .table tbody tr:nth-child(even)").css("background",'#fff');
-                    $(".conTable2 .table tbody tr").removeClass("gaoliang");
+                    $(".conTable .table tbody tr").removeClass("gaoliang");
                     if(table3getTime > getTime){
                         $(".conTable3 .table tbody tr").eq(i-1).css("background","#8ABDED");
                         $(".conTable3 .table tbody tr").eq(i-1).addClass("gaoliang");
+                        $(".zhezhaoTable .conTable3 .table tbody tr").eq(i-1).css("background","#8ABDED");
+                        $(".zhezhaoTable .conTable3 .table tbody tr").eq(i-1).addClass("gaoliang");
                         var juli = 20*(i-2);
                         $(".conTable3").animate({scrollTop:juli},300);
                     }else{
                         $(".conTable3 .table tbody tr").eq(i).css("background","#8ABDED");
                         $(".conTable3 .table tbody tr").eq(i).addClass("gaoliang");
+                        $(".zhezhaoTable .conTable3 .table tbody tr").eq(i).css("background","#8ABDED");
+                        $(".zhezhaoTable .conTable3 .table tbody tr").eq(i).addClass("gaoliang");
                     }
+                }else{
+                    $(".conTable3 .table tbody tr").eq(i).css("background","#8ABDED");
+                    $(".conTable3 .table tbody tr").eq(i).addClass("gaoliang");
+                    $(".zhezhaoTable .conTable3 .table tbody tr").eq(i).css("background","#8ABDED");
+                    $(".zhezhaoTable .conTable3 .table tbody tr").eq(i).addClass("gaoliang");
                 }
                 break;
             }
@@ -513,22 +571,33 @@ $(function(){
         //联动信令表：
         for(var i=0;i<xinlingData.rrc.length;i++){
             var table0Time = xinlingData.rrc[i].time;
-            var table0Time0 = show()+table1Time;
-            var table0getTime = new Date(table1Time0).getTime();
-            if(table0getTime >= getTime){ //规则：获取表中小于点击的主表时间戳离得最近的一行数据
+            var table0Time0 = show()+table0Time;
+            var table0getTime = new Date(table0Time0).getTime();
+            if(table0getTime >= getTime){ //规则：获取表中小于点击的主表时间戳离得最近的一行数
                 if(i>=1){
                     $(".conTable0 .table tbody tr:nth-child(odd)").css("background",'#F1F5FF');
                     $(".conTable0 .table tbody tr:nth-child(even)").css("background",'#fff');
                     $(".conTable .table tbody tr").removeClass("gaoliang");
-                    if(table1getTime > getTime){
+                    if(table0getTime > getTime){
                         $(".conTable0 .table tbody tr").eq(i-1).css("background","#8ABDED");
                         $(".conTable0 .table tbody tr").eq(i-1).addClass("gaoliang");
+                        $(".zhezhaoTable .conTable0 .table tbody tr").eq(i-1).css("background","#8ABDED");
+                        $(".zhezhaoTable .conTable0 .table tbody tr").eq(i-1).addClass("gaoliang");
                         var juli = 20*(i-2);
                         $(".conTable0").animate({scrollTop:juli},300);
-                    }else{alert(5);
+                    }else{
                         $(".conTable0 .table tbody tr").eq(i).css("background","#8ABDED");
                         $(".conTable0 .table tbody tr").eq(i).addClass("gaoliang");
+                        $(".zhezhaoTable .conTable0 .table tbody tr").eq(i).css("background","#8ABDED");
+                        $(".zhezhaoTable .conTable0 .table tbody tr").eq(i).addClass("gaoliang");
+
                     }
+                }else{
+                    $(".conTable0 .table tbody tr").eq(i).css("background","#8ABDED");
+                    $(".conTable0 .table tbody tr").eq(i).addClass("gaoliang");
+                    $(".zhezhaoTable .conTable0 .table tbody tr").eq(i).css("background","#8ABDED");
+                    $(".zhezhaoTable .conTable0 .table tbody tr").eq(i).addClass("gaoliang");
+
                 }
                 break;
             }
@@ -540,64 +609,81 @@ $(function(){
         var index = $(this).index();
         $(".huifangButton li").removeClass("active").eq(index).addClass("active");
         if(index == 0){ //回放
-            huifang(500); //调用huifang()函数 正常speed
+            $(".menuTwo_canshu .speed li").css("background","oldlace").eq(1).css("background","orange");
+            clearInterval(jishiqi); //关闭计时器
+            huifang(1000); //调用huifang()函数 正常speed
         }else{ //暂停
             $(".speed li").removeClass("active");
             clearInterval(jishiqi); //关闭计时器
         }
     });
-    //huifang()函数 封装：
+    //速度控制：
+    $(".menuTwo_canshu .speed li").click(function(){
+        var index=$(this).index();
+        $(".menuTwo_canshu .speed li").css("background","oldlace").eq(index).css("background","orange");
+        if(index==0){
+            clearInterval(jishiqi); //关闭计时器
+            huifang(2000);
+        }else if(index==1){
+            clearInterval(jishiqi); //关闭计时器
+            huifang(1000);
+        }else{
+            clearInterval(jishiqi); //关闭计时器
+            huifang(500);
+        }
+    });
+    //huifang()函数 封装
+    var timeData;
+    $.ajax({
+        type: "GET",
+        url:"map.json",
+        async:false,
+        success: function(result) {
+            timeData = result.timelist;
+        }
+    });
     function huifang(speed){
         clearInterval(jishiqi);
-        //获取到表一高亮的当前位置 ：
-            for(var i=0;i<data.rfs.length;i++){
-                var gl = $(".conTable1 .table tbody tr").eq(i).attr("class");
-                if(gl == "gaoliang"){
-                    //找到高亮的时间【从点击处开始回放】
-                    var glT = $(".conTable1 .table tbody tr").eq(i).children("td:nth-child(2)").html();
-                    //找到高亮的时间 所对应的时间list:
-                    var glTimeindex;
-                    for(var j=0;j<data.timeList.length;j++){
-                        if(glT == data.timeList[j]){
-                            glTimeindex=j;
-                            break;
-                        }
-                    }
-                    function timeList1(){
+        var glTimeindex=0;
+        var glTime=timeData[glTimeindex];
+        var Time0 = show()+glTime;
+        var getTime = new Date(Time0).getTime(); //点中的时间转化为时间戳
+        liandong(getTime); //调用联动函数
+        function timeList1(){
+                    if(glTimeindex<timeData.length){
                         glTimeindex=glTimeindex+1;
-                        var Time00 = show()+data.timeList[glTimeindex];
-                        var getTime00 = new Date(Time00).getTime();
-                        liandong(getTime00); //调用联动函数
+                    }else{
+                        glTimeindex=0;
                     }
-                    // 打开计时器
-                    jishiqi = setInterval(function(){
-                        timeList1();
-                    },500);
-                    break;
-                }
-                if(i == data.rfs.length-1){
-                    //找到高亮的时间【无点击的话，从表一的第一条开始回放】
-                    var glT = $(".conTable1 .table tbody tr").eq(0).children("td:nth-child(2)").html();
-                    //找到高亮的时间 所对应的时间list:
-                    var glTimeindex;
-                    for(var j=0;j<data.timeList.length;j++){
-                        if(glT == data.timeList[j]){
-                            glTimeindex=j;
-                            break;
-                        }
-                    }
-                    function timeList1(){
-                        glTimeindex=glTimeindex+1;
-                        var Time00 = show()+data.timeList[glTimeindex];
-                        var getTime00 = new Date(Time00).getTime();
-                        liandong(getTime00); //调用联动函数
-                    }
-                    // 打开计时器
-                    jishiqi = setInterval(function(){
-                        timeList1();
-                    },speed);
-                    break;
-                }
-            }
+                    var glTime=timeData[glTimeindex];
+                    var Time0 = show()+glTime;
+                    var getTime = new Date(Time0).getTime(); //点中的时间转化为时间戳
+                    liandong(getTime); //调用联动函数
+        }
+        // 打开计时器
+        jishiqi = setInterval(function(){
+             timeList1();
+        },speed);
     }
+//========测量距离=================
+    $("#ceju").click(function(){
+        caculateLL(lat1, lng1, lat2, lng2);
+    });
+    function caculateLL(lat1, lng1, lat2, lng2) {
+        var radLat1 = lat1 * Math.PI / 180.0;
+        var radLat2 = lat2 * Math.PI / 180.0;
+        var a = radLat1 - radLat2;
+
+        var b = lng1 * Math.PI / 180.0 - lng2 * Math.PI / 180.0;
+        var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+        s = s * 6378.137;
+        s = Math.round(s * 10000) / 10000;
+        alert(
+            "打点:("+(lat1, lng1)+")\n"
+            +"基站:("+(lat1, lng1)+")\n"
+            +"距离:"+s+'km'
+        );
+
+    };
+
 });

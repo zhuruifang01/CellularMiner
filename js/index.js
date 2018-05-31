@@ -19,6 +19,25 @@ $(function(){
         // 时钟
         $('#show').html(currentTime);
     },1000);
+
+//校验结果:
+    $(".jyJieGuo").click(function(){
+        $(".zhezhaoTable1").show(500);
+    });
+    $(".zhezhaoTable .false").click(function(){
+        $(".zhezhaoTable").hide();
+    });
+//修改表格:
+    $(".table tbody .edit").click(function(){
+        $(".zhezhaoTable2").show(500);
+    });
+    $(".caozuo li:first-child").click(function(){
+        $(".zhezhaoTable2").hide();
+        window.location.href("../shuju.html");
+    });
+    $(".caozuo li:last-child").click(function(){
+        $(".zhezhaoTable2").hide();
+    });
 //==============数据======================
     //获取文件表：
     var data=[{"id":"20180326155208147566","name":"nbiot.txt"},{"id":"20180326155314139893","name":"nbiot.txt"}]

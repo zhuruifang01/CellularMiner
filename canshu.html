@@ -21,7 +21,8 @@
         .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
         padding:2px;
         }
-        .conTable0Conn .title li{text-align:left;white-space:pre;}
+        .zhezhaoXinling .conTable ul li{text-align:left;white-space:pre;}
+        .zhezhaoTable .conTableT .table tbody .gaoliang{background:cornflowerblue;}
     </style>
 </head>
 <body>
@@ -70,14 +71,17 @@
     <div class="menuTwo_canshu">
         <ul class="title">参数详情</ul>
         <ul class="title huifangButton" style="background:oldlace;color:#000;">
-            <li style="float:left;width:33.3333%;height:100%;cursor:wait;"> 回放</li>
+            <li style="float:left;width:33.3333%;height:100%;cursor:pointer;"> 回放</li>
             <li style="float:right;width:33.3333%;height:100%;cursor:pointer;">暂停</li>
         </ul>
-        <!--<ul class="title speed" style="background:oldlace;color:#000;">-->
-            <!--<li style="float:left;width:33.3333%;height:100%;cursor:pointer;">慢速</li>-->
-            <!--<li style="float:left;width:33.3333%;height:100%;cursor:pointer;">正常</li>-->
-            <!--<li style="float:left;width:33.3333%;height:100%;cursor:pointer;">快速</li>-->
-        <!--</ul>-->
+        <ul class="title speed" style="background:oldlace;color:#000;">
+            <li style="float:left;width:33.3333%;height:100%;cursor:pointer;">慢速</li>
+            <li style="float:left;width:33.3333%;height:100%;cursor:pointer;">正常</li>
+            <li style="float:left;width:33.3333%;height:100%;cursor:pointer;">快速</li>
+        </ul>
+        <ul class="title" style="background:#fff;">
+            <li style="width:80px;height:32px;line-height:32px;background:orange;border-radius:6px;float:right;margin-top:2px;">保存此窗口</li>
+        </ul>
         <ul class="yiji yijiActive">
             <li>
                 <span class="text" style="float:left;">map</span>
@@ -95,6 +99,7 @@
             <li><span style="background:#009600;"></span> -70 < RSRP<=-50</li>
             <li><span style="background:#BCF2BC;"></span> -50 < RSRP</li>
             <li>pci顺序:<span style="background:blue;float:right;"></span><span style="background:green;float:right;"></span><span style="background:yellow;float:right;"></span><span style="background:red;float:right;"></span></li>
+
         </ul>
         <ul class="yiji">
             <li>
@@ -202,6 +207,7 @@
         <div class="mianTable" style="display:block">
             <div class="title">
                 <div class="left">map</div>
+                <div id="ceju" style="width:60px;height:20px;line-height:20px;float:right;font-size:10px;background:#eee;margin-top:7px;border-radius:5px;margin-right:6px;cursor:pointer;">显示距离</div>
                 <ul class="right">
                     <li class="big"> <img src="img/big.png" alt=""> </li>
                     <li class="false"> <img src="img/false.png" alt=""></li>
@@ -222,7 +228,7 @@
                     <li class="false"> <img src="img/false.png" alt=""></li>
                 </ul>
             </div>
-            <div class="conTable conTableT conTable0" style="height:204px;">
+            <div class="conTable conTableT conTable0" style="height:308px;">
                 <table class="table">
                     <thead>
                     <tr style="background:#f9f9f9">
@@ -238,11 +244,6 @@
                     </thead>
                     <tbody></tbody>
                 </table>
-            </div>
-            <div class="conTable0Conn" style="width:100%;height:100px;background:#eeeeee;overflow:scroll;">
-                <ul class="title" style="width:100%;height:20px;line-height:20px;background:none;font-size:12px;">
-                    <li style="text-align:center;">信令详情</li>
-                </ul>
             </div>
         </div>
         <div class="mianTable">
@@ -365,7 +366,7 @@
                         <li class="false"> <img src="img/false.png" alt=""></li>
                     </ul>
                 </div>
-                <div class="conTable conTableT conTable0" style="height:480px">
+                <div class="conTable conTableT conTable0">
                     <table class="table">
                         <thead>
                         <tr style="background:#f9f9f9">
@@ -381,11 +382,6 @@
                         </thead>
                         <tbody></tbody>
                     </table>
-                </div>
-                <div class="conTable0Conn" style="width:100%;height:100px;background:#eeeeee;overflow:scroll;">
-                    <ul class="title" style="width:100%;height:20px;line-height:20px;background:none;font-size:12px;">
-                        <li style="text-align:center;">信令详情</li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -484,6 +480,23 @@
                         </thead>
                         <tbody></tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+        <!--信令详情-->
+        <div class="zhezhaoTable zhezhaoXinling" style="display:none;">
+            <div class="mianBigTable" style="width:80%;height:550px;">
+                <div class="title">
+                    <div class="left">信令详情</div>
+                    <ul class="right">
+                        <li class="false"> <img src="img/false.png" alt=""></li>
+                    </ul>
+                </div>
+                <div class="conTable">
+                    <ul style="padding:10px;">
+                        <li>sss</li>
+                        <li>ddd</li>
+                    </ul>
                 </div>
             </div>
         </div>

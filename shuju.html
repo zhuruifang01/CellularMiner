@@ -14,6 +14,13 @@
         .table td span{float:left;width:50px;height:24px;line-height:24px;border-radius:6px;margin-top:5px;cursor:pointer;color:#FFF;}
         .table td span:first-child{background:red;float:left;}
         .table td span:last-child{background:cornflowerblue;float:right;margin-right:31px;}
+        .editPage,.caozuo{width:80%;height:auto;line-height:40px;margin:0 auto;margin-top:15px;}
+        .editPage li{width:100%;height:40px;}
+        .editPage li span:first-child{float:left;width:150px;}
+        .editPage li span:last-child{float:left;width:250px;}
+        .editPage li span:last-child input{width:100%;height:32px;border:0;border:1px solid #000;border-radius:6px;}
+        .caozuo{width:200px;}
+        .caozuo li{width:80px;height:32px;float:left;border-radius:6px;margin-left:6px;line-height:32px;cursor:pointer;}
     </style>
 </head>
 <body>
@@ -69,20 +76,23 @@
             <li class="delete" style="float:right;margin-right:3px;background:#E95153"> - </li>
         </ul>
     </div>
-    <div class="main" style="margin-top:0;">
+    <div class="main" style="margin-top:0;position:relative;">
         <div class="menuTwo" style="width:97%;height:35px;float:right;">
             <ul class="title">
                 <li style="width:50px;line-height:35px;float:left;background:none;border:0;">基站:</li>
-                <li class="add" style="height:26px;line-height:26px;margin-top:6px;float:right;position:relative;margin-right:50px;width:105px;font-size:14px;">
+                <li style="width:84px;height:26px;line-height:26px;border:0;background:orange;float:left;border-radius:5px;margin-top:6px;cursor:pointer;">下载模版</li>
+                <li class="add" style="height:26px;line-height:26px;margin-top:6px;float:left;position:relative;margin-left:25px;width:105px;font-size:14px;">
                     +上传基站数据
                     <input type="file" id="file2">
                 </li>
-                <li style="width:84px;height:26px;line-height:26px;border:0;background:orange;float:right;border-radius:5px;margin-top:6px;">下载模版</li>
+                <li class="jyJieGuo" style="width:100px;height:26px;line-height:26px;border:0;background:#3DE6B0;float:left;border-radius:5px;margin-top:6px;cursor:pointer;margin-left:35px;">校验结果</li>
+                <li style="width:100px;height:26px;line-height:26px;border:0;background:#3DE6B0;float:right;border-radius:5px;margin-top:6px;cursor:pointer;margin-right:35px;">导出修改记录</li>
+                <li style="width:100px;height:26px;line-height:26px;border:0;background:#3DE6B0;float:right;border-radius:5px;margin-top:6px;cursor:pointer;margin-right:35px;">下载至本地</li>
             </ul>
         </div>
         <table class="table table-hover table-bordered" style="width:97%;float:right;background:#fff;text-align:center;">
             <thead>
-            <tr style="background:#f9f9f9;">
+                <tr style="background:#f9f9f9;">
                 <th>序号</th>
                 <th>longitude</th>
                 <th>latitude</th>
@@ -93,152 +103,233 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>121.51495503041305</td>
-                <td>31.300697969797418</td>
-                <td>10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>
-                    <span>删除</span>
-                    <span>修改</span>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>121.51495503041305</td>
-                <td>31.300697969797418</td>
-                <td>10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>
-                    <span>删除</span>
-                    <span>修改</span>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>121.51495503041305</td>
-                <td>31.300697969797418</td>
-                <td>10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>
-                    <span>删除</span>
-                    <span>修改</span>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>121.51495503041305</td>
-                <td>31.300697969797418</td>
-                <td>10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>
-                    <span>删除</span>
-                    <span>修改</span>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>121.51495503041305</td>
-                <td>31.300697969797418</td>
-                <td>10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>
-                    <span>删除</span>
-                    <span>修改</span>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>121.51495503041305</td>
-                <td>31.300697969797418</td>
-                <td>10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>
-                    <span>删除</span>
-                    <span>修改</span>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>121.51495503041305</td>
-                <td>31.300697969797418</td>
-                <td>10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>
-                    <span>删除</span>
-                    <span>修改</span>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>121.51495503041305</td>
-                <td>31.300697969797418</td>
-                <td>10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>
-                    <span>删除</span>
-                    <span>修改</span>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>121.51495503041305</td>
-                <td>31.300697969797418</td>
-                <td>10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>
-                    <span>删除</span>
-                    <span>修改</span>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>121.51495503041305</td>
-                <td>31.300697969797418</td>
-                <td>10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>
-                    <span>删除</span>
-                    <span>修改</span>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>121.51495503041305</td>
-                <td>31.300697969797418</td>
-                <td>10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>
-                    <span>删除</span>
-                    <span>修改</span>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>121.51495503041305</td>
-                <td>31.300697969797418</td>
-                <td>10</td>
-                <td>20</td>
-                <td>30</td>
-                <td>
-                    <span>删除</span>
-                    <span>修改</span>
-                </td>
-            </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>121.51495503041305</td>
+                    <td>31.300697969797418</td>
+                    <td>10</td>
+                    <td>20</td>
+                    <td>30</td>
+                    <td>
+                        <span>删除</span>
+                        <span class="edit">修改</span>
+                    </td>
+                </tr>
             </tbody>
         </table>
+        <div class="zhezhaoTable zhezhaoTable1">
+            <ul class="mianBigTable" style="width:80%;height:550px;">
+                <div class="title">
+                    <div class="left">上传数据流程</div>
+                    <ul class="right">
+                        <li class="false"> <img src="img/false.png" alt=""></li>
+                    </ul>
+                </div>
+                <li>校验成功...</li>
+                <li>上传成功...</li>
+            </ul>
+        </div>
+        <div class="zhezhaoTable zhezhaoTable2">
+            <div class="mianBigTable" style="width:80%;height:550px;">
+                <div class="title">
+                    <div class="left">请修改</div>
+                </div>
+                <ul class="editPage">
+                    <li>
+                        <span>参数1:</span>
+                        <span><input type="text" placeholder="value1"></span>
+                    </li>
+                    <li>
+                        <span>参数1:</span>
+                        <span><input type="text" placeholder="value1"></span>
+                    </li>
+                    <li>
+                        <span>参数1:</span>
+                        <span><input type="text" placeholder="value1"></span>
+                    </li>
+                    <li>
+                        <span>参数1:</span>
+                        <span><input type="text" placeholder="value1"></span>
+                    </li>
+                    <li>
+                        <span>参数1:</span>
+                        <span><input type="text" placeholder="value1"></span>
+                    </li>
+                    <li>
+                        <span>参数1:</span>
+                        <span><input type="text" placeholder="value1"></span>
+                    </li>
+                    <li>
+                        <span>参数1:</span>
+                        <span><input type="text" placeholder="value1"></span>
+                    </li>
+                    <li>
+                        <span>参数1:</span>
+                        <span><input type="text" placeholder="value1"></span>
+                    </li>
+                </ul>
+                <ul class="caozuo">
+                    <li style="background:cornflowerblue">保存</li>
+                    <li style="background:orange">关闭</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 </body>
